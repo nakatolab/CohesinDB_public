@@ -1,0 +1,56 @@
+{% extends "demoSite/base_bs4.html" %}
+
+{% block title %} Browse_each_gene {% endblock %}
+
+{% block content %}
+{% load static %}
+{% load replacecomma %}
+
+<h1><i class="fas fa-dna"></i> Deatailed information for processed data {{ onedata.cdbid }} </h1>
+
+<hr style="width: 100%; height: 1px; border: none; background-color: #282828">
+
+<div class="row">
+  <div class="col-md-12 container flex-nowrap">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Basic information</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>CohesinDB ID: </b>{{ onedata.cdbid }}</li>
+        <li class="list-group-item"><b>Cohesin-related type: </b>{{onedata.modules}}</li>
+        <li class="list-group-item"><b>NGS assay: </b>{{ onedata.experiment}}</li>
+        <li class="list-group-item"><b>Involved cohesin subunit: </b>{{ onedata.subunit}}</li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Sample information</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Cell type: </b>{{ onedata.cell }}</li>
+        <li class="list-group-item"><b>Tissue type: </b>{{ onedata.tissue }}</li>
+        <li class="list-group-item"><b>Biosample: </b>{{ onedata.biosample }}</li>
+        <li class="list-group-item"><b>Disease: </b>{{ onedata.disease }}</li>
+        <li class="list-group-item"><b>Treatment 1: </b>{{ onedata.treat1 }}</li>
+        <li class="list-group-item"><b>Treatment 2: </b>{{ onedata.treat2 }}</li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Assay-specific information</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Antibody (for ChIP-seq,ChIA-PET): </b>{{ onedata.antibody }}</li>
+        <li class="list-group-item"><b>Restriction enzyme (for Hi-C, Hi-ChIP): </b>{{onedata.restriction}}</li>
+        <li class="list-group-item"><b>Comparison group (for RNA-seq, Microarray, etc.): </b>{{ onedata.compareID}}</li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Downloadable file</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Original study: </b><a href="{{onedata.link}}">{{onedata.access}}</a></li>
+        <li class="list-group-item"><b>Process file 1: </b><a href="{{ link1 }}">{{ name1 }}</a></li>
+        <li class="list-group-item"><b>Process file 2: </b><a href="{{ link2 }}">{{ name2 }}</a></li>
+        {% if onedata.experiment == "HiC" %}
+        <li class="list-group-item"><b>Process file 3: </b><a href="{{ link3 }}">{{ name3 }}</a></li>
+        {% endif %}
+      </div>
+
+
+    </ul>
+  </div>
+</div>
+
+{% endblock %}

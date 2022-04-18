@@ -1,0 +1,54 @@
+<script>
+    const container = document.getElementById('embed');
+    const contents = {
+        "genomeName": "hg38",
+        "displayRegion": "chr5:53099707-54812207",
+        "trackLegendWidth": 120,
+        "isShowingNavigator": true,
+        "tracks": [
+        {
+            "type": "geneannotation",
+            "name": "refGene",
+            "genome": "hg38"
+        },
+        {
+            "type": "ruler",
+            "name": "Ruler"
+        },
+        {
+            "type": "longrange",
+            "name": "ChipSeq of CTCF",
+            "url": "http://www.jiankang.ga/test.longrange.sorted.gz",
+            "options": { "color": "red" ,'displayMode':'arc'},
+            "metadata": { "Sample": "Heart" }
+        },
+        {
+            "type": "bigwig",
+            "name": "ChipSeq of Liver",
+            "url": "http://127.0.0.1/CTCF.bw",
+            "options": { "color": "blue" },
+            "metadata": { "Sample": "Liver" }
+        }
+        ],
+        "metadataTerms": ["Sample"],
+        "regionSets": [],
+        "regionSetViewIndex": -1,
+    };
+
+    $("#add-visualize-data").click(function(){
+      contents["tracks"].push({
+          "type": "bigwig",
+          "name": "ChipSeq of Liver",
+          "url": "http://127.0.0.1/CTCF.bw",
+          "options": { "color": "blue" },
+          "metadata": { "Sample": "Liver" }
+      });
+
+      $("#embed").load("/visualize",function(){
+        alert(contents);
+        const container = document.getElementById('embed');
+        });
+      });
+
+    //renderBrowserInElement(contents, container);
+</script>

@@ -1,0 +1,85 @@
+{% extends "demoSite/base.html" %}
+
+{% block title %} CohesinDB_Download {% endblock %}
+
+{% block content %}
+{% load static %}
+<!-- JQuery -->
+
+
+<h1><span class="glyphicon glyphicon-save"></span> Download core data of CohesinDB</h1>
+<div class="alert alert-warning">
+  <b>!! The processed data of each study can be download via <a href="/data">Data</a> page</b>
+</div>
+
+
+		<div class="col-md-12 column">
+
+			<div class="panel-group" id="panel-649550">
+
+				<div class="panel panel-success">
+					<div class="panel-heading">
+						 <h2 class="panel-title" href="#">All cohesin peaks with annotations</h2>
+					</div>
+					<div id="panel-element-738131" class="panel-collapse in">
+						<div class="panel-body">
+							<h4>751,590 cohesin peaks identified from ChIP-seq samples in CohesinDB, with detailed annotations.</h4>
+              <h5>Click to download 169 MB file: <a href="{% url 'demoSite:downAllObject' 'allcohesin.final.tsv.gz' %}">allcohesin.final.tsv.gz</a> </h5>
+						</div>
+					</div>
+				</div>
+
+				<div class="panel panel-success">
+					<div class="panel-heading ">
+						 <h2 class="panel-title" href="#">All cohesin-mediated chromatin interactions</h2>
+					</div>
+					<div id="panel-element-664579" class="panel-collapse">
+						<div class="panel-body">
+              <h4>957,868 cohesin-mediated interactions identified from ChIA-PET, Hi-ChIP and Hi-C </h4>
+              <h5>Click to download 19 MB file: <a href="{% url 'demoSite:downAllObject' 'allloop.final.tsv.gz' %}">allloop.final.tsv.gz</a> </h5>
+						</div>
+					</div>
+				</div>
+
+        <div class="panel panel-success">
+					<div class="panel-heading ">
+						 <h2 class="panel-title" href="#">All genes annotated by cohesin</h2>
+					</div>
+					<div id="panel-element-664579" class="panel-collapse">
+						<div class="panel-body">
+              <h4>60,607 genes with the annotations of cohesin </h4>
+              <h5>Click to download 25 MB file: <a href="{% url 'demoSite:downAllObject' 'allgene.final.tsv.gz' %}">allgene.final.tsv.gz</a> </h5>
+						</div>
+					</div>
+				</div>
+
+        <div class="panel panel-success">
+					<div class="panel-heading ">
+						 <h2 class="panel-title" href="#">All cohesin-gene pairs</h2>
+					</div>
+					<div id="panel-element-664579" class="panel-collapse">
+						<div class="panel-body">
+              <h4>2,229,500 triple-evidenced cohesin-gene pairs</h4>
+              <h5>Click to download 30 MB file: <a href="{% url 'demoSite:downAllObject' 'double-evidenced.pair.tsv.gz' %}">double-evidenced.pair.tsv.gz</a> </h5>
+						</div>
+					</div>
+				</div>
+
+        <div class="panel panel-success">
+					<div class="panel-heading ">
+						 <h2 class="panel-title" href="#">All cohesin ChIP-seq peaks</h2>
+					</div>
+					<div id="panel-element-664579" class="panel-collapse">
+						<div class="panel-body">
+              <h4>550 cohesin ChIP-seq peaks at bed3 format</h4>
+              <h5>Click to download 352 MB file: <a href="{% url 'demoSite:downAllObject' 'allpeak3col.tar.gz' %}">allpeak3col.tar.gz</a> </h5>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+
+
+{% endblock %}

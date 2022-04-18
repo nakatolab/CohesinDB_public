@@ -1,0 +1,504 @@
+{% extends "demoSite/base.html" %}
+
+{% block title %} CohesinDB_Help {% endblock %}
+
+{% block content %}
+{% load static %}
+
+<script src="{% static 'js/bootstrap-treeview.min.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/bootstrap-treeview.min.css' %}">
+
+
+<div class="col-md-12 column">
+  <h1><i class="fa fa-coffee" aria-hidden="true"></i> Usage and documents</h1>
+  <div class="col-md-6 column" id="UsageIntro">
+    <h3>
+      This page provides the tutorial for CohesinDB.
+    </h3>
+
+    <p>
+      The main contents of CohesinDB include cohesin information (i.e., cohesin- binding sites, mediated loops and regulated genes) and the used cohesin NGS data (i.e., the processed files for ChIP-seq, RNA-seq, Hi-C, etc.):
+    </p>
+    <p>
+      <ul>
+        <li>Cohesin information: <a href="/browse/">Browse</a>, <a href="/analyze/">Analyze</a>, <a href="/statistic/">Statistic</a>, <a href="download">Download</a></li>
+        <li>Used cohesin NGS data: <a href="visualize">Visualize</a>, <a href="data">Data</a>, <a href="/statistic/">Statistic</a></li>
+        <li>Others: <a href="/">Home</a>, <a href="/help/">Usage</a></li>
+      </ul>
+      You can jump to your interested part by selecting the panel on the right -->>
+    </p>
+    <br>
+    <p>Documentation on the code and maintenance of CohesinDB can be found <a href="/pipeline/">here</a>.</p>
+  </div>
+
+  <div class="col-md-6 column" id="tree">
+  </div>
+</div>
+
+<div class="col-md-12 column" id="overview">
+    <h3><span class="glyphicon glyphicon-tags"></span> Overview</h3>
+    <p>CohesinDB provides the most comprehensive database for cohesin in human. We colleted and manually curated the large amount of NGS data from GEO, ENCODE and 4DN, that are related to cohesin. The cohesin-binding sites are identified from <code>ChIP-seq</code>; The cohesin-mediated loops are identified from <code>Hi-C, Hi-ChIP and ChIA-PET</code>; For the cohesin-regulated genes we considered not only coehsin-knockdown DEGs (differential expressed genes) from <code>RNA-seq, Microarray, PRO-seq, GRO-seq</code>, but also the cohesin interactions from <code>ChIP-seq, ChIA-PET, Hi-C, Hi-ChIP</code>. In addtion, we also provided the access of all processed files, which will facilate researchers to re-use these cohesin-related data. All these information above are extracted and saved to MySQL database. CohesinDB uses <code>Python</code> and <code>Django</code> as the main backend language, <code>JQuery,Bootstrap,HTML/CSS</code> as the main frontend language. This website provides abundunt resources and functions for cohesin and 3D genome researchers.</p>
+    <p><b>Mapping genome reference: <code>hg38</code></b></p>
+    <p><b>Website URL: <code>https://cohesindb.iqb.u-tokyo.ac.jp/</code></b> (If not available, try http instead of https)</p>
+    <p><b>Last data update: <code>2022, Jan, 01</code></b></p>
+    <p><b>Last website update: <code>2022, April, 01</code></b></p>
+    <p><b>Current version: <code>v1.0.4</code></b></p>
+
+    <div class="col-md-6 col-md-offset-3">
+      <img src="{% static 'images/Outline.png' %}" alt="CohesinDB outline" class="img-responsive">
+    </div>
+
+</div>
+
+<div id="browse">
+  <h3><span class="glyphicon glyphicon-tags"></span> Browse</h3>
+  <p>Browse page provides the cohesin information in three different aspects:</p>
+  <dl class="dl-horizontal">
+	 <dt style="width: 300px; margin-right: 10px">Cohesin binding sites</dt>
+	 <dd>The combined cohesin binding sites with detailed annotations</dd>
+	 <dt style="width: 300px; margin-right: 10px">Cohesin mediated interactions</dt>
+	 <dd>Interactions / loops that are mediated by cohesin</dd>
+   <dt style="width: 300px; margin-right: 10px">Cohesin regulated genes</dt>
+   <dd>Gene that may be regulated by particular cohesin sites (multiple evidence)</dd>
+  </dl>
+  <p>You can choose the desired section by select the dropdown list on <code>Browse</code></p>
+</div>
+
+<div id="browse1" class="clearfix">
+  <h4><span class="glyphicon glyphicon-bookmark"></span> Browse cohesin binding sites</h4>
+  <p>The universal cohesin binding sites are combined from the cohesin ChIP-seq data in CohesinDB. High quality ChIP-seq samples with >1000 peak numbers are used. To obtain the high confidence peaks, cohesin sites that are detected in >= 2 samples are retained. To avoid the clustered small peaks, peaks whose distance < 200bp are merged. overall, there are <code>751,590</code> cohesin peaks are included in CohesinDB.</p>
+  <p>A typical usage of browsing cohesin binding sites are shown as following screenshot. Briefly, (1) you enter this cohesin peak page by click on the dropdown list. (2) Then you can enter filters to define the criterias for cohesin sites. (3) After click the submit button, the right panel (4) shows the overview of search results. The table (5) gives the major information of the choosen cohesin peak list. You can check the information and annotations in this table, or enter the details page via click on the CDB ID (6). </p>
+  <p class="text-warning">* The users are expected to fill the genomic region of cohesin, otherwise the webpage would be too heavy and slow.</p>
+
+  <div class="col-md-6 col-md-offset-3">
+    <img src="{% static 'images/usage_browse.png' %}" alt="CohesinDB outline" class="img-responsive">
+  </div>
+
+  <div class="col-md-12 column">
+    <p>By click on the CDB ID, you can enter the details pages for each cohesin sites. You can share the URL of detailed pages to others such as collaborators. This page provide comprehensive annotation for each sites, including:</p>
+    <ul>
+      <li><p><b><u><i>Basic Information</i></u></b></p></li>
+      <p><b>CohesinDB ID: </b>An unique ID for each peaks strat with "CDBP". You can share the web page for each cohesin sites by <code>https://cohesindb.iqb.u-tokyo.ac.jp/browsepeak/eachpeak/CDBP{ID}/</code></p>
+      <p><b>Locus: </b>The genomic locus of selected cohesin sites (hg38 human genome reference).</p>
+      <p><b>Data sourse: </b>The studies that are used to identify this cohesin sites. You can access the data by the ID from Encode, 4DN or GEO.</p>
+      <p><b>Cell type: </b>The celltypes that are used to identify this cohesin sites</p>
+      <li><p><b><u><i>Cohesin category</i></u></b></p></li>
+      <p><b>Cell specificity: </b> A score that measures the cell specificity. A higher value (~1) represents the conserved sites, while a lower value (~0) represents the cell-specific sites.</p>
+      <p><b>Subunit: </b>The inloved cohesin subunits.</p>
+      <p><b>Whether CTCF:</b>Whether this cohesin site have overlaps with CTCF.</p>
+      <p>Genomic location: </p>The location of cohesin site based on gene annotation (Ensembl). Intra: Intragenic; Inter: Intergenic; TSS: transcription start sites; TES: transcription end sites.
+      <li><p><b><u><i>3D genome</i></u></b></p></li>
+      <p><b>TAD boundary: </b>Whether this cohesin site overlap with TAD boundary.</p>
+      <p><b>Chromatin hubs: </b>Whether this cohesin site overlap with chromatin hubs.</p>
+      <p><b>Hi-C loops: </b>Whether this cohesin site overlap with Hi-C loops.</p>
+      <p><b>Hi-ChIP loops: </b>Whether this cohesin site overlap with Hi-ChIP loops.</p>
+      <p><b>ChIA-PET loops: </b>Whether this cohesin site overlap with ChIA-PET loops.</p>
+      <li><p><b><u><i>Cis-regulatory elements</i></u></b></p></li>
+      <p><b>Enhancer: </b>Whether this cohesin site overlap with Enhancers (defined in Fantom5 database)</p>
+      <p><b>Co-binding TFs: </b>The possible transcription factors that are located at this cohesin sites. TFs information is from ReMAP2020 database</p>
+      <p><b>Target gene: </b>The candidate cohesin regulated genes that are evidenced by both "cohesin DEGs" and "cohesin loops".</p>
+      <li><p><b><u><i>Function elements</i></u></b></p></li>
+      <p><b>SNPs: </b>The SNPs (from <a href="https://www.ebi.ac.uk/gwas/">GWAS catalog</a>) on this cohesin sites. "." represent no SNPs on this site.</p>
+      <p><b>Somatic coding mutations: </b>Number of mutation events that are defined in COSMIC database.</p>
+      <p><b>Somatic nonoding mutations: </b>Number of noncoding mutation events that are defined in COSMIC database.</p>
+      <li><p><b><u><i>Related genes and loops</i></u></b></p></li>
+      <p><b>Related gene: </b>The gene ID of cohesin regulated genes. This is the same with "Target gene" but with an link. You can click to see the details of involved genes.</p>
+      <p><b>Related gene: </b>Chromatin loops that are located in this cohesin site.</p>
+      <li><p><b><u><i>Visualization</i></u></b></p></li>
+      <p>This visualization is based on WashU Epigenome Browser API. You can see the selected cohesin site, relared loops and related genes here. If you are interested in more details, please check <code>Related gene</code> and <code>Related loop</code></p>
+    </ul>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+    <img src="{% static 'images/eachpeak.png' %}" alt="CohesinDB outline" class="img-responsive">
+  </div>
+</div>
+
+<div id="browse2" class="col-md-12 column">
+  <h4><span class="glyphicon glyphicon-bookmark"></span> Browse cohesin-mediated loops</h4>
+  <div class="col-md-12 column">
+    <p>The cohesin-mediated loops are identified from 119 cohesin ChIA-PET data, 42 cohesin Hi-ChIP data and 385 Hi-C data. Overall, CohesinDB includes ~1 million (<code>957,867</code>) chromatin loops. Similar to 'browse cohesin sites', to browse cohesin-mediated loops: (1) you enter this cohesin loop page by click the dropdown list. (2) Then you can enter filters to define the criterias for cohesin loops. (3) After click the submit button, the right panel (4) shows the overview of search results. The table (5) gives the main information of the selected loops. You can check the information and annotations in this table, or enter the details page via click on the CDB ID (6).</p>
+    <p class="text-warning">* Too few filters will make this webpage heavy.</p>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+    <img src="{% static 'images/Usage_browse_loop.png' %}" alt="Usage_browse_loop" class="img-responsive">
+  </div>
+
+  <div class="col-md-12 column">
+    <br>
+    <p>By click on the CDB ID (CDBL*), you can enter the details pages for each cohesin loops. You can share the URL of detailed pages to others such as collaborators The detailed page provides annotations including:</p>
+    <ul>
+      <li><p><b><u><i>Basic information</i></u></b></p></li>
+      <p>A unique identify; Genomic position of the loop; Loop length.</p>
+      <li><p><b><u><i>Data source</i></u></b></p></li>
+      <p>The assay type (HiC, Hi-ChIP or ChIA-PET); Involved cohesin subunit; Cell types of the involved samples; Related studies.</p>
+      <li><p><b><u><i>Related cohesin and genes</i></u></b></p></li>
+      <p>Cohesin sites and genes that overlap with the selected loop.</p>
+      <li><p><b><u><i>Visualization</i></u></b></p></li>
+      <p>The plot of selected loop and related cohesin sites and related genes. You can drag to move the coordinates. This section is based on the embedding of <a href="http://epigenomegateway.wustl.edu">WashU Epigenome Browser</a></p>
+    </ul>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+    <img src="{% static 'images/Usage_each_loop.png' %}" alt="Usage_each_loop" class="img-responsive">
+  </div>
+</div>
+
+<div id="browse3" class="col-md-12 column">
+  <br>
+  <h4><span class="glyphicon glyphicon-bookmark"></span> Browse cohesin-regulated genes</h4>
+  <div class="col-md-12 column">
+    <p>This page is for cohesin-regulated genes. CohesinDB considered two types of evidence to obtain cohesin-gene pairs.</p>
+    <ul>
+      <li>Differential expressed genes identified from Transcriptomic data (e.g. RNA-seq, cohesin-knockdown compare with control). Only DEGs identified in ≥ 2 studies are used. Cohesin sites less than 2mb from DEGs are considered as regulatory cohesin.</li>
+      <li>Chromatin loops that connected cohesin sites to gene promoters.</li>
+    </ul>
+    <p>Overall, CohesinDB contains <code>2,229,500</code> double-evidenced cohesin-gene pairs.</p>
+    <p>The user interface is the same with cohesin sites and loops. (1) You enter this cohesin-mediated genes page by click the dropdown list. (2) Then you can enter filters to define the criterias for genes. (3) After click the submit button, the right panel (4) shows the overview of search results. The table (5) gives the main information of the selected genes. You can check the information and annotations in this table, or enter the details page via click on the CDB ID (6)</p>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+    <img src="{% static 'images/Usage_browse_gene.png' %}" alt="Usage_browse_gene" class="img-responsive">
+  </div>
+
+  <div class="col-md-12 column">
+    <br>
+    <p>By click on the CDB ID (CDBG*), you can enter the details pages for each gene:</p>
+    <ul>
+      <li><p><b><u><i>Basic information</i></u></b></p></li>
+      <p>CohesinDB ID; Gene symbol; Ensembl ID; Gene locus; Gene type.</p>
+      <li><p><b><u><i>Regulatory cohesin</i></u></b></p></li>
+      <p>Whether cohesin-regulated gene; regulatory cohesin sites; evidence type.</p>
+      <li><p><b><u><i>Tissue specificity</i></u></b></p></li>
+      <p>Gene expression levels (TPM) across tissues. The data are from <a href="https://gtexportal.org/home/">GTEx</a></p>
+      <p>Tissue-specificity (Gini coefficient) of genes</p>
+      <p>Cell-specificity of regulatory cohesin.</p>
+      <li><p><b><u><i>Cohesin loop evidence</i></u></b></p></li>
+      <p>Whether connect cohesin via cohesin loops; Connected loops; Loop type (<code>Direct</code> means cohesin sites are located on gene body); Loop study; Loop subunit</p>
+      <li><p><b><u><i>Cohesin DEGs evidence</i></u></b></p></li>
+      <p>Whether cohesin DEGs; Studies; Cohesin subunits.</p>
+      <li><p><b><u><i>Visualization</i></u></b></p></li>
+      <p>The plot of selected gene and related cohesin sites and loops. This section is based on the embedding of <a href="http://epigenomegateway.wustl.edu">WashU Epigenome Browser</a></p>
+    </ul>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+    <img src="{% static 'images/Usage_each_gene.png' %}" alt="Usage_each_gene" class="img-responsive">
+  </div>
+</div>
+
+<div class="col-md-12 column" id="analyze">
+  <h3><span class="glyphicon glyphicon-random"></span> Analyze</h3>
+  <div class="col-md-12 column">
+    <p>This analyze page is designed for biologist who don't need to know computational knowledge. The analysis include three part:</p>
+
+    <dl class="dl-horizontal">
+  	 <dt style="width: 300px; margin-right: 10px">Analyze1: Predict regulatory elements</dt>
+  	 <dd>Input a list of genes, to obtain the regulatory sites and co-bind transcriptional factors.</dd>
+  	 <dt style="width: 300px; margin-right: 10px">Analyze2: Predict target genes</dt>
+  	 <dd>Input a list of regions, to obtain the target genes and gene pathway. </dd>
+     <dt style="width: 300px; margin-right: 10px">Analyze3: Loop discovery</dt>
+     <dd>Input a list of genomic regions, to obtain the related loops and the connected regions (the other end of the loops).</dd>
+    </dl>
+    <strong style="color:red">** Due to the extensive role of cohesin, these analyses are useful not only for cohesin research, but also for any study on gene regulation / chomatin interaction / 3D genome. For example, cohesin is involved in almost all cis-regulatory elements [Riku, Nat Gen, 2015]; Cohesin plays a major role in chromatin organization [Rao, Cell, 2017]</strong>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+    <img src="{% static 'images/Usage_analyze_all.png' %}" alt="Usage_analyze_all_page" class="img-responsive">
+  </div>
+</div>
+
+<div id="analyze1" class="col-md-12 column">
+  <h4><span class="glyphicon glyphicon-menu-right"></span> Analyze gene set</h4>
+  <div class="col-md-12 column">
+    <p>This analysis takes a gene set as input, then output the regulatory sites with co-bound TFs. The input should be a list of gene symbol in <a href="https://www.genenames.org/">HGNC format</a>. Because one gene can be regulated by many genomic loci where mant TFs located, the plot only shows partial results: (1) cohesin sites are merged; (2) Cohesin sites that inolved in many (top 10) cohesin-gene pairs are shown; (3) The most frequently involved (Top 10) TFs are shown. The full results are provided with a <code>.csv</code> file which contains 3 columns: </p>
+    <table class="table">
+       <thead>
+          <tr>
+             <th>Gene</th>
+             <th>Regulatory-Cohesin</th>
+            <th>Cobind-TFs</th>
+          </tr>
+       </thead>
+       <tbody>
+          <tr>
+             <td>PAK4</td>
+             <td>chr19-38150586-38152046</td>
+             <td>ZFX,SP140,ZBTB48,ESR1...</td>
+          </tr>
+       </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+    <img src="{% static 'images/Usage_analyze1.png' %}" alt="Usage_analyze1_page" class="img-responsive">
+  </div>
+</div>
+
+<div id="analyze2" class="col-md-12 column">
+  <h4><span class="glyphicon glyphicon-menu-right"></span> Analyze a list of genomic region</h4>
+  <div class="col-md-12 column">
+    <p>This analysis takes a list of genomic regions as input, then output the candidate genes that are regulated by the input regions. The input should be comma-separated genomic regions under <code>hg38</code> reference. Similarly, the plot only shows partial results: (1) Genes that are involved in many (top 10) cohesin-gene pairs are shown; (2) Gene pathway with the most (top 10) significant p-value are shown. The full results are provided by two downloadable files: </p>
+    <table class="table">
+    	<caption>Sites-Genes-Pathway</caption>
+       <thead>
+          <tr>
+             <th>Input sites</th>
+             <th>Target genes</th>
+             <th>Significant_enriched_pathway</th>
+          </tr>
+       </thead>
+       <tbody>
+          <tr>
+             <td>chr12-116515022-116516937</td>
+             <td>MED13L</td>
+             <td>Thyroid hormone signaling pathway</td>
+          </tr>
+       </tbody>
+    </table>
+
+    <table class="table">
+    	<caption>The full list of KEGG enrichment</caption>
+       <thead>
+          <tr>
+             <th>Gene_set</th>
+             <th>Term</th>
+             <th>Overlap</th>
+             <th>P-value</th>
+             <th>...</th>
+          </tr>
+       </thead>
+       <tbody>
+          <tr>
+            <td>KEGG_2021_Human</td>
+            <td>Biosynthesis of unsaturated fatty acids</td>
+            <td>1/27</td>
+            <td>0.0094131205361766</td>
+            <td>...</td>
+          </tr>
+       </tbody>
+    </table>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+    <img src="{% static 'images/Usage_analyze2.png' %}" alt="Usage_analyze2_page" class="img-responsive">
+  </div>
+</div>
+
+<div id="analyze3" class="col-md-12 column">
+  <h4><span class="glyphicon glyphicon-menu-right"></span> Analyze loop</h4>
+  <div class="col-md-12 column">
+    <p>This analyze is to find chromatin interaction for a list of genomic loci. The output are revelant chromatin loops and the connected regions by the loops. Rather than treating chromatin as a linear model (i.e., nearby regions (±5kb) of interest loci), this analysis enables researchers to study genomic loci of interest in a higher-dimensional way. For example, the connected regions may far (>2 mb) away from the input regions, which are not considered in the linear model.</p>
+    <p>The input file should be tab-separated <code>.bed</code> format. Only the first 3 columns are used. The plot on the right panel shows the most (to 10) revelant study (ChIA-PET, Hi-ChIP or Hi-C). The downloadable files includes discovered loops (columns 1-6: two anchors of loops, column 7: studies.) and the connected regions (columns 1-3: input regions; columns 4-6: connected regions).</p>
+    <div class="col-md-6 col-md-offset-3">
+      <img src="{% static 'images/Usage_analyze3.png' %}" alt="Usage_analyze3_page" class="img-responsive">
+    </div>
+  </div>
+
+</div>
+
+
+<div class="col-md-12 column" id="visualize">
+  <h3><span class="glyphicon glyphicon-eye-open"></span> Visualize</h3>
+  <div class="col-md-12 column">
+    <p>This page provides the visualization for ChIP-seq, ChIA-PET, Hi-ChIP and Hi-C included in CohesinDB.</p>
+    <p>Bascially, this page is based on the API (embedding) provided by <a href="http://epigenomegateway.wustl.edu">WashU Epigenome Browser</a>. The interface is the same with WashU browser.</p>
+    <p><b>Try this page by clicking the <a href="http://cohesindb.iqb.u-tokyo.ac.jp/visualize/CDBD00911+CDBD00907+CDBD00026+CDBD00027+CDBD01419+CDBD01326/">example</a>.</b></p>
+    <p>To use this page. (1) Select the sample of interest. Assay -> Cell -> Sample. (2) Click 'Add' button. The choosen sample will be added to the current sample list. (3) Check current samples or clear all selected data. (4)(5) Check the gene annotation and genome coordinates. You can move the genes/coordinates by 'Clicking and Dragging'. Or you can use the tool bar on the top. (6) Check the visualization of seleted samples. You can re-arrange the pannels by draging them. </p>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+    <img src="{% static 'images/Usage_visualize.png' %}" alt="Usage_visualize_page" class="img-responsive">
+  </div>
+</div>
+
+<div class="col-md-12 column" id="data">
+  <h3><span class="glyphicon glyphicon-th"></span> Processed data</h3>
+  <p>This page is for browseing or downloading the processsed file for all NGS samples included in CohesinDB.</p>
+  <ol>
+    <li>Either select/unselect the sidebar, or search in the table.</li>
+    <li>Confirm or clear current filters. Check the selected data.</li>
+    <li>Scroll the table to see the details, or click the ID the see the detail information.</li>
+  </ol>
+
+  <div class="col-md-6 col-md-offset-3">
+    <img src="{% static 'images/Usage_data.png' %}" alt="Usage_data_page" class="img-responsive">
+  </div>
+
+  <div class="col-md-12 column">
+
+  <p>The detailed informatin for each data include:</p>
+  <p><b>Basic information: </b>ID, cohesin-related type, assay type, involved cohesin subunit.</p>
+  <p><b>Sample information: </b>Cell type, Tissue type, Biosample, Related disease, Treatment.</p>
+  <p><b>Assay-specific information: </b> Antibody, Restriction enzyme, Comparison group.</p>
+  <p><b>Downloadable file: </b>Link to the original study, download link.</p>
+
+  <table class="table table-hover">
+  	<caption>The downloadable files are:</caption>
+  	<thead>
+  		<tr>
+  			<th>File</th>
+  			<th>Assay</th>
+  			<th>Contents</th>
+  		</tr>
+  	</thead>
+  	<tbody>
+      <tr>
+  			<td>File1</td>
+  			<td>ChIP-seq</td>
+  			<td>ChIP-seq reads in <code>.bigwig</code> format</td>
+  		</tr>
+      <tr>
+  			<td>File2</td>
+  			<td>ChIP-seq</td>
+  			<td>ChIP-seq Peaks in <code>.bed</code> format</td>
+  		</tr>
+  		<tr>
+  			<td>File1</td>
+  			<td>ChIA-PET</td>
+  			<td>loop in <code>.longrange</code> format</td>
+  		</tr>
+  		<tr>
+  			<td>File2</td>
+  			<td>ChIA-PET</td>
+  			<td>loop in <code>.bedpe</code> format</td>
+  		</tr>
+  		<tr>
+  			<td>File1</td>
+  			<td>Hi-C, Hi-ChIP</td>
+  			<td>Contact matrix in <code>.hic</code> format</td>
+  		</tr>
+      <tr>
+  			<td>File2</td>
+  			<td>Hi-C, Hi-ChIP</td>
+  			<td>Chromatin loop in <code>.bedpe</code> format</td>
+  		</tr>
+      <tr>
+  			<td>File1</td>
+  			<td>RNA-seq etc.</td>
+  			<td>Differential expressed genes by <code>edgeR</code> </td>
+  		</tr>
+      <tr>
+  			<td>File2</td>
+  			<td>RNA-seq etc.</td>
+  			<td>Gene expresssion in <code>TPM</code></td>
+  		</tr>
+
+  	</tbody>
+  </table>
+  </div>
+
+</div>
+
+<div class="col-md-12 column" id="statistic">
+  <h3><span class="glyphicon glyphicon-signal"></span> Statistic</h3>
+  <div class="col-md-12 column">
+    This page sumarized the key information for CohesinDB.
+    <ul>
+      <li>Number of samples for each cohesin subunit. We used <code>log2</code> to achieve a better visualization. The majoratity of them are Rad21, SA1, SMC3. Hi-C samples are assigned to 'Other' because Hi-C provides indirect information for cohesin. Samples with CdLS disease are assigned to NIPBL subunit. </li>
+      <li>Number of samples for cell types. Overall, the top three cell types are MCF-7, HCT-116 and HeLa celss. </li>
+      <li>Information of all cohesin sites. For example, almost all (>96%) cohesin sites also overlap with cohesin ChIA-PET loops, suggesting the reliability of CohesinDB.</li>
+      <li>Information of all cohesin-regulated genes. Based on ~2 million cohesin-gene pairs, there are 15203 genes that are regulated by cohesin, with double-evidence.</li>
+      <li>Studies included in CohesinDB.</li>
+    </ul>
+  </div>
+
+  <div class="col-md-6 col-md-offset-3">
+    <img src="{% static 'images/Usage_statistic.png' %}" alt="Usage_statistic_page" class="img-responsive">
+  </div>
+</div>
+
+<div class="col-md-12 column" id="download">
+    <h3><span class="glyphicon glyphicon-save"></span> Download</h3>
+    <p>This page provides the downloading of all cohesin-related data, that are collected in CohesinDB. Please note that this page does not contain the processed file for each sample. Please go to <a href="/data/">Data</a> page for those contents.</p>
+    <p>The downloadable file include: </p>
+    <p><b>All cohesin peaks with annotations: </b>This is a tab-separated file that provides all cohesin binding sites with detailed annotations.</p>
+    <p><b>All cohesin-mediated chromatin interactions: </b>This is a tab-separated file that provides all cohesin mediated loops with detailed annotations.</p>
+    <p><b>All genes annotated by regulatory cohesin: </b>This is a tab-separated file that provides all cohesin regulated genes with detailed annotations.</p>
+    <p><b>All gene-to-cohesin pairs evidenced by cohesin-loops and cohesin DEGs: </b>This is a tab-separated file that provides 'cohesin sites'-to-gene pairs (double-evidenced).</p>
+    <p><b>All ChIP-seq peaks at bed3 format: </b>This is a zipped file that includes 550 peak files of cohesin ChIP-seq.</p>
+
+</div>
+
+
+<script type="text/javascript">
+
+  var tree = [
+  {
+    icon: "glyphicon glyphicon-leaf",
+    text:"Overview",
+    href:"#overview",
+  },
+  {
+    icon:'glyphicon glyphicon-search',
+    text: "Browse",
+    state: {expanded: false,},
+    href: "#browse",
+    nodes: [
+      {
+        icon: "glyphicon glyphicon-book",
+        text: "Browse cohesin binding sites",
+        href:"#browse1",
+      },
+      {
+        icon: "glyphicon glyphicon-book",
+        text: "Browse cohesin mediated loops",
+        href:"#browse2",
+      },
+      {
+        icon: "glyphicon glyphicon-book",
+        text: "Browse cohesin regulated genes",
+        href:"#browse3",
+      },
+    ]
+  },
+  {
+    icon:'glyphicon glyphicon-random',
+    text: "Analyze",
+    state: {expanded: false,},
+    nodes: [
+      {
+        icon: "glyphicon glyphicon-menu-right",
+        text: "Analyze gene set",
+        href:"#analyze1",
+      },
+      {
+        icon: "glyphicon glyphicon-menu-right",
+        text: "Analyze a list of genomic region",
+        href:"#analyze2",
+      },
+      {
+        icon: "glyphicon glyphicon-menu-right",
+        text: "Analyze loop",
+        href:"#analyze3",
+      },
+    ]
+  },
+  {
+    icon:'glyphicon glyphicon-eye-open',
+    text: "Visualize",
+    href:"#data",
+  },
+  {
+    icon:'glyphicon glyphicon-th',
+    text: "Processed Data",
+    href:"#data",
+  },
+  {
+    icon:'glyphicon glyphicon-signal',
+    text: "Statistic",
+    href:"#statistic",
+  },
+  {
+    icon:'glyphicon glyphicon-save',
+    text: "Download",
+    href:"#download",
+  }
+];
+
+$('#tree').treeview({data: tree,enableLinks:true,});
+
+</script>
+
+{% endblock %}

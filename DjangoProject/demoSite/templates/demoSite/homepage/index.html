@@ -1,0 +1,274 @@
+{% extends "demoSite/base.html" %}
+
+{% block title %} CohesinDB_Home {% endblock %}
+
+{% block content %}
+
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'css/odometer-theme-plaza.css' %}" >
+<script src="{% static 'js/odometer.min.js' %}"></script>
+
+<div class="col-md-12 column">
+  <div class="jumbotron well bigscreen">
+    <img src="{% static 'images/cohesindb_logo.png' %}" class="img-responsive" alt="CohesinDB logo">
+    <p>
+      Welcome to CohesinDB (v1.0.3). This is a comprehensive cohesin database in human cells. Cohesin is a protein complex
+      that mediate transcription, chromosome structure, and sister chromatid cohesion. Based
+      on next-generation sequencing techinique, CohesinDB provided three main modules:
+       <a href="/browse/">Cohesin-binding sites</a>, <a href="/browseloop/">Cohesin-mediated loops</a> and <a href="/browsegene/">Cohesin-regulated genes</a>. CohesinDB also provide <a href="/analyze/">Analyze</a>, <a href="/visulize/">Visulize</a>, <a href="/data/">Data</a>(i.e. all processed file of used data), <a href="/Statistic/">Statistic</a>, <a href="download">Download</a> and <a href="/help/">Usage</a> functions.
+    </p>
+    <p>
+       <a class="btn btn-primary btn-large" href="/help/" style="background-color: #662506; border-color: black; ">Learn more >></a>
+    </p>
+  </div>
+</div>
+
+<div class="row clearfix roll_number">
+  <div class="col-md-4 column text-center">
+    <h2><i class="fa fa-book"></i> Studies</h2>
+    <div class="odometer study_num_div">000</div>
+  </div>
+  <div class="col-md-4 column text-center ">
+    <h2><i class="fa fa-microchip"></i> Samples</h2>
+    <div class="odometer sample_num_div">000</div>
+  </div>
+  <div class="col-md-4 column text-center ">
+    <h2><i class="fa fa-clone"></i> Cell types</h2>
+    <div class="odometer cell_num_div">000</div>
+  </div>
+</div>
+
+<div class="row clearfix">
+  <div class="col-md-6 column">
+    <div class="carousel slide" id="carousel-73824">
+      <ol class="carousel-indicators">
+        <li data-slide-to="0" data-target="#carousel-73824"></li>
+        <li data-slide-to="1" data-target="#carousel-73824" class="active"></li>
+        <li data-slide-to="2" data-target="#carousel-73824"></li>
+        <li data-slide-to="3" data-target="#carousel-73824"></li>
+        <li data-slide-to="4" data-target="#carousel-73824"></li>
+        <li data-slide-to="6" data-target="#carousel-73824"></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item carousel-toosmall">
+          <img class="img-responsive" alt="cohesin subunit" src="{% static 'images/cohesin_subunit.png' %}" />
+          <div class="carousel-caption">
+            <h3>
+              <font color="black">Subunit of Cohesin</font>
+            </h3>
+          </div>
+        </div>
+
+        <div class="item active">
+          <img style="max-height: 100%; width: auto; margin-left: auto; margin-right: auto;" alt="CohesinDB outline" src="{% static 'images/Outline.png' %}" />
+          <div class="carousel-caption">
+            <h3>
+              <font color="black">CohesinDB design</font>
+            </h3>
+          </div>
+        </div>
+
+        <div class="item ">
+          <img style="max-height: 100%; width: auto; margin-left: auto; margin-right: auto;" alt="" src="{% static 'images/Slide_browse.png' %}" />
+          <div class="carousel-caption">
+            <h3>
+              <font color="black">Browse page</font>
+            </h3>
+          </div>
+        </div>
+
+        <div class="item ">
+          <img style="max-height: 100%; width: auto; margin-left: auto; margin-right: auto;" alt="" src="{% static 'images/Slide_analyze.png' %}" />
+          <div class="carousel-caption">
+            <h3>
+              <font color="black">Analyze page</font>
+            </h3>
+          </div>
+        </div>
+
+        <div class="item ">
+          <img style="max-height: 100%; width: auto; margin-left: auto; margin-right: auto;" alt="" src="{% static 'images/Slide_visualize.png' %}" />
+          <div class="carousel-caption">
+            <h3>
+              <font color="black">Visualize page</font>
+            </h3>
+          </div>
+        </div>
+
+        <div class="item ">
+          <img style="max-height: 100%; width: auto; margin-left: auto; margin-right: auto;" alt="" src="{% static 'images/Slide_data.png' %}" />
+          <div class="carousel-caption">
+            <h3>
+              <font color="black">Data page</font>
+            </h3>
+          </div>
+        </div>
+
+      </div> <a class="left carousel-control" href="#carousel-73824" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-73824" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div>
+  </div>
+
+  <div class="col-md-6 column homepage-statistic">
+    <div class="tabbable" id="tabs-707134">
+      <ul class="nav nav-tabs">
+        <li class="active">
+           <a href="#panel-homepage-all" data-toggle="tab" id='text-homepage-all'>NGS Assay</a>
+        </li>
+        <li>
+           <a href="#panel-homepage-target" data-toggle="tab" id='text-homepage-target'>Cohesin objects</a>
+        </li>
+        <li>
+           <a href="#panel-homepage-dependent" data-toggle="tab" id='text-homepage-dependent'>Data type</a>
+        </li>
+      </ul>
+      <div class="tab-content">
+        <div class="tab-pane active" id="panel-homepage-all">
+          <div id="container" style="width: 90%;">
+              <canvas id="chart-homepage-all"></canvas>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="panel-homepage-target">
+          <div id="container" style="width: 90%;">
+            <canvas id="chart-homepage-target"></canvas>
+          </div>
+        </div>
+        <div class="tab-pane fade" id="panel-homepage-dependent">
+          <div id="container" style="width: 90%;">
+            <canvas id="chart-homepage-dependent"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row clearfix">
+  <div class="col-md-4 column">
+    <h2>Social Media</h2>
+    <div class="news_and_media">
+      <!--<a class="twitter-timeline" href="https://twitter.com/RyuichiroNakato?ref_src=twsrc%5Etfw">Tweets by Ryuichiro Nakato</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>-->
+      <a class="twitter-timeline" href="https://twitter.com/nakatolab?ref_src=twsrc%5Etfw">Tweets by nakatolab</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+  </div>
+
+  <div class="col-md-4 column ">
+    <h2>NEWS</h2>
+    <div class="news_and_media">
+      {% for update_new in update_news %}
+        <h4><span class="glyphicon glyphicon-check"></span> {{update_new.title}} </h4>
+        <div class='news_content'>
+          <p class="text-muted">{{update_new.publishtime}}</p>
+          <p> {{update_new.content}} </p>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="col-md-4 column">
+    <h2>Visitors</h2>
+    <script type="text/javascript" src="//rf.revolvermaps.com/0/0/8.js?i=5iv4vpgeb1k&amp;m=7&amp;c=00ff6c&amp;cr1=ffc000&amp;f=calibri&amp;l=49" async="async"></script>
+  </div>
+
+</div>
+
+<script>
+    var config_all = {
+      type: 'pie',
+      data: {
+        datasets: [{data: {{ data_all|safe }},
+                    backgroundColor: ['#ffa600', '#ff7c43', '#f95d6a', '#d45087', '#a05195', '#665191', '#2f4b7c', '#003f5c'],
+                    label: 'Number'}],
+        labels: {{ label_all|safe }}   },
+      options: {
+        scales: {
+          yAxes: [{ ticks: {
+                          beginAtZero: true
+                        }
+                  }]
+          },
+        responsive: true,
+        legend: {
+            display: true,
+            position: 'right',
+          }
+        }
+      };
+
+      config_target = {
+        type: 'bar',
+        data: {
+          datasets: [{data: {{ data_target|safe }},
+                      backgroundColor: ['#C33149', '#A8C256', '#F3D9B1', '#C29979'],
+                      label: 'Number of cohesin objects (see "Browse" page)'}],
+          labels: {{ label_target|safe }}   },
+        options: {
+          scales: {
+            yAxes: [{ ticks: {
+                            beginAtZero: true
+                          }
+                    }]
+            },
+          responsive: true,
+          legend: {
+              display: true,
+              position: 'top',
+            }
+          }
+        };
+
+      config_dependent= {
+          type: 'bar',
+          data: {
+            datasets: [{data: {{ data_dependent|safe }},
+                        backgroundColor: ['#FFD9CE', 'grey', '#593C8F', '#8EF9F3'],
+                        label: 'Number of data type (see "Data" page)'}],
+            labels: {{ label_dependent|safe }}   },
+          options: {
+            scales: {
+              yAxes: [{ ticks: {
+                              beginAtZero: true
+                            }
+                      }]
+              },
+            responsive: true,
+            legend: {
+                display: true,
+                position: 'top',
+              }
+            }
+          };
+
+    var ctx_target = document.getElementById('chart-homepage-target').getContext('2d');
+    var ctx_all = document.getElementById('chart-homepage-all').getContext('2d');
+    var ctx_dependent = document.getElementById('chart-homepage-dependent').getContext('2d');
+
+    $(document).ready(function() {
+      window.myPie = new Chart(ctx_all, config_all);
+
+    $('#text-homepage-target').on('shown.bs.tab',function() {
+        window.myTarget = new Chart(ctx_target, config_target);
+      })
+
+    $('#text-homepage-dependent').on('shown.bs.tab',function() {
+        window.myDependent = new Chart(ctx_dependent, config_dependent);
+    })
+
+    $('#text-homepage-all').on('shown.bs.tab',function() {
+        window.myDependent = new Chart(ctx_all, config_all);
+    })
+
+    });
+</script>
+
+<script>
+  var study_num= {{ study_num|safe }};
+  var sample_num= {{ sample_num|safe }};
+  var cell_num= {{ cell_num|safe }};
+  window.onload = function(){$('.study_num_div').html(study_num);
+                            $('.sample_num_div').html(sample_num);
+                            $('.cell_num_div').html(cell_num);}
+</script>
+
+{% endblock %}

@@ -1,0 +1,97 @@
+{% extends "demoSite/base_bs4.html" %}
+
+{% block title %} Browse_each_loop {% endblock %}
+
+{% block content %}
+{% load static %}
+{% load replacecomma %}
+
+{% for oneloop in selectedloop %}
+<h1><i class="fas fa-dna"></i> Deatailed information for cohesin loop {{ oneloop.cdbid }} </h1>
+
+<hr style="width: 100%; height: 1px; border: none; background-color: #282828">
+
+<div class="row">
+  <div class="col-md-12 container flex-nowrap">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Basic information</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>CohesinDB ID: </b>{{ oneloop.cdbid }}</li>
+        <li class="list-group-item"><b>Position: </b>{{ oneloop.chrom1 }}:{{ oneloop.start1 }}-{{ oneloop.end1 }} ~~~ {{ oneloop.chrom2 }}:{{ oneloop.start2 }}-{{ oneloop.end2 }}</li>
+        <li class="list-group-item"><b>Loop length: </b>{{ oneloop.looplength }} kbp</li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Data source</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Assay type: </b>{{ oneloop.assay }}</li>
+        <li class="list-group-item"><b>Subunit: </b>{{ oneloop.subunit }}</li>
+        <li class="list-group-item"><b>Cell type: </b>{{ oneloop.celltype }}</li>
+        <li class="list-group-item"><b>Study: </b>{{ oneloop.study }}</li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Related cohesin and genes</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Related cohesin: </b>
+          {% for onepeak in relatedpeak %}
+            <a href="/browsepeak/eachpeak/{{onepeak.cdbid}}/">{{ onepeak.slug }}</a>,
+          {% endfor %}
+        </li>
+        <li class="list-group-item"><b>Related gene: </b>
+          {% for onegene in relatedgene %}
+            <a href="/browsegene/eachgene/{{onegene.cdbid}}/">{{ onegene.geneID }}</a>,
+          {% endfor %}
+        </li>
+      </div>
+    </ul>
+  </div>
+
+  <hr style="width: 100%; height: 1px; border: none; background-color: #282828">
+
+  <div class="col-md-12 container">
+      <div id="embed">eachgene</div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+const container = document.getElementById('embed');
+const contents = {
+    "genomeName": "hg38",
+    "displayRegion": "{{ visualizeRegion | safe }}",
+    "trackLegendWidth": 120,
+    "isShowingNavigator": true,
+    "tracks": [
+    {
+        "type": "geneannotation",
+        "name": "gencodeV29",
+        "genome": "hg38"
+    },
+    {
+        "type": "ruler",
+        "name": "Ruler"
+    },
+    ],
+    "metadataTerms": ["Assay"],
+    "regionSets": [],
+    "regionSetViewIndex": -1,
+};
+
+console.log({{ epgg_tracks | safe  }})
+
+contents["tracks"] = contents["tracks"].concat({{ epgg_tracks | safe  }});
+
+renderBrowserInElement(contents, container);
+
+$('*').mouseover(function(e){
+    e.preventDefault();
+ });
+
+
+</script>
+
+
+
+{% endfor %}
+
+
+{% endblock %}

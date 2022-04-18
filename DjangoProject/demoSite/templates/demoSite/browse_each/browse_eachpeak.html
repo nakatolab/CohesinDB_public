@@ -1,0 +1,159 @@
+{% extends "demoSite/base_bs4.html" %}
+
+{% block title %} Browse_each_site {% endblock %}
+
+{% block content %}
+{% load static %}
+{% load replacecomma %}
+
+{% for onepeak in selectedpeak %}
+<h1><i class="fas fa-dna"></i> Deatailed information for cohesin site {{ onepeak.cdbid }} </h1>
+
+<hr style="width: 100%; height: 1px; border: none; background-color: #282828">
+
+<div class="row">
+  <div class="col-md-12 container flex-nowrap">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Basic information</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>CohesinDB ID: </b>{{ onepeak.cdbid }}</li>
+        <li class="list-group-item"><b>Locus: </b>{{ onepeak.slug }}</li>
+        <li class="list-group-item test_truncate">
+          <b>Data sourse: </b>{{ onepeak.datasource | replacecomma }}
+          <a class="showmoreicon" href="#"><i class="fa fa-chevron-circle-down" aria-hidden="true"></i></a>
+          <a class="hidemoreicon" href="#"><i class="fa fa-chevron-circle-up" aria-hidden="true"></i></a>
+        </li>
+        <li class="list-group-item ">
+          <b>Cell type: </b>{{ onepeak.celltype | replacecomma}}
+        </li>
+        <li class="list-group-item"><b>Sequence: </b>
+          <a href='http://togows.org/api/ucsc/hg38/{{onepeak.chromosome}}:{{onepeak.start}}-{{onepeak.end}}.fasta'>UCSC hg38</a>
+        </li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Cohesin category</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Peak occupancy ratio: </b>{% widthratio onepeak.peakoccupancy 1 100 %}% samples have this site.</li>
+        <li class="list-group-item"><b>Cell specificity (1: conserved, 0: cell specific): </b>{{ onepeak.cellspecificity | floatformat:"3" }}</li>
+        <li class="list-group-item"><b>Subunit: </b>{{ onepeak.subunit }}</li>
+        <li class="list-group-item">
+          <b>CTCF binding site: </b>{{ onepeak.CTCFdependent }}
+          <span style="padding-left:50px;"><b>CTCF motif: </b>{{ onepeak.CTCFmotif}}</span>
+        </li>
+        <li class="list-group-item"><b>Genomic location: </b>{{ onepeak.location }}</li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> 3D genome</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>TAD boundary: </b>{{ onepeak.boundary }}</li>
+        <li class="list-group-item"><b>Chromatin hubs: </b>{{ onepeak.hubs }}</li>
+        <li class="list-group-item"><b>Hi-C loops: </b>{{ onepeak.hicloop }}</li>
+        <li class="list-group-item"><b>Hi-ChIP loops: </b>{{ onepeak.hicchiploop }}</li>
+        <li class="list-group-item"><b>ChIA-PET loops: </b>{{ onepeak.chialoop }}</li>
+        <li class="list-group-item"><b>Compartment: </b>
+          {% if onepeak.compartmentA > -0.1 %}
+          {% widthratio onepeak.compartmentA 1 100 %}% Hi-C samples shows Compartment A
+          {% else %}
+          Not Applicable
+          {% endif %}
+        </li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Cis-regulatory elements</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Enhancer (Fantom5): </b>{{ onepeak.enhancer }}</li>
+        <li class="list-group-item"><b>Super enhancer (SEdb): </b>{{ onepeak.superenhancer }}</li>
+        <li class="list-group-item">
+          <b>Chromatin annotation: </b>
+          "{{ onepeak.HMMtop1name }}": {% widthratio onepeak.HMMtop1percent 1 100 %}%,
+          "{{ onepeak.HMMtop2name }}": {% widthratio onepeak.HMMtop2percent 1 100 %}%,
+          <br>
+          <span class="text-muted">
+            Note: The percentage represent how many of the 127 Roadmap datasets show the indicated state (top 2).
+          </span>
+        </li>
+        <li class="list-group-item"><b>Co-bound Transcriptional factors: </b>{{ onepeak.cobind | replacecomma }}</li>
+        <li class="list-group-item"><b>Target gene symbol (triple evidenced): </b>{{ onepeak.targetgene }}</li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Function elements</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Human SNPs: </b>{{ onepeak.snp }}</li>
+        <li class="list-group-item"><b>Number of somatic mutations (coding): </b>{{ onepeak.codingmut }}</li>
+        <li class="list-group-item"><b>Number of somatic mutations (non-coding): </b>{{ onepeak.noncodingmut }}</li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Related genes and loops</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Related gene: </b>
+          {% for onegene in relatedgene %}
+            <a href="/browsegene/eachgene/{{onegene.cdbid}}/">{{ onegene.geneID }}</a>,
+          {% endfor %}
+        </li>
+        <li class="list-group-item"><b>Related loop: </b>
+          {% for oneloop in relatedloop %}
+            <a href="/browseloop/eachloop/{{oneloop.cdbid}}/">{{ oneloop.chrom1 }}:{{ oneloop.start1 }}-{{ oneloop.end1 }}~~{{ oneloop.chrom2 }}:{{ oneloop.start2 }}-{{ oneloop.end2 }}</a>,
+          {% endfor %}
+        </li>
+
+
+      </div>
+
+    </ul>
+  </div>
+
+  <hr style="width: 100%; height: 1px; border: none; background-color: #282828">
+
+  <div class="col-md-12 container">
+      <div id="embed">eachgene</div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+// 缩短显示
+  $(function () {
+	$('.showmoreicon').on('click', function () {
+  	$('.test_truncate').addClass('test_truncated');
+	});
+
+  $('.hidemoreicon').on('click', function () {
+  	$('.test_truncated').removeClass('test_truncated');
+	});
+  });
+
+const container = document.getElementById('embed');
+const contents = {
+    "genomeName": "hg38",
+    "displayRegion": "{{ visualizeRegion| safe }}",
+    "trackLegendWidth": 120,
+    "isShowingNavigator": true,
+    "tracks": [
+    {
+        "type": "geneannotation",
+        "name": "refGene",
+        "genome": "hg38"
+    },
+    {
+        "type": "ruler",
+        "name": "Ruler"
+    },
+    ],
+    "metadataTerms": ["Assay"],
+    "regionSets": [],
+    "regionSetViewIndex": -1,
+};
+
+console.log({{ epgg_tracks | safe  }})
+
+
+contents["tracks"] = contents["tracks"].concat({{ epgg_tracks | safe  }});
+
+renderBrowserInElement(contents, container);
+</script>
+
+
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,372 @@
+{% extends "demoSite/base.html" %}
+
+{% block title %} CohesinDB_Analyze {% endblock %}
+
+{% block content %}
+{% load static %}
+
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="{% static 'js/barplotAM.js' %}"></script>
+
+<div class="">
+  <h2><i class="fa fa-hourglass-half "></i>  Analysis </h2>
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="row">
+				<div class="col-md-4">
+					<div class="thumbnail">
+						<img alt="Analyze1" src="{% static 'images/Analyze1.png' %}" height="50%" />
+						<div class="caption">
+							<h3 style='margin-top:0px;'>Predict regulatory sites</h3>
+							<p> - Input: A list of gene name</p>
+              <p> - Output: Regions of potential regulatory elements</p>
+							<a class="btn btn-danger btn-lg" onclick="funcbox1()">Start <i class="fa fa-clone"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="thumbnail">
+						<img alt="Analyze2" src="{% static 'images/Analyze2.png' %}" height="50%" />
+						<div class="caption">
+							<h3 style='margin-top:0px;'>Predict target gene</h3>
+              <p> - Input: List of genomic regions</p>
+              <p> - Output: Possible target genes</p>
+							<a class="btn btn-danger btn-lg" onclick="funcbox2()">Start <i class="fa fa-clone"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="thumbnail">
+						<img alt="Analyze2" src="{% static 'images/Analyze3.png' %}" height="50%" />
+						<div class="caption">
+							<h3 style='margin-top:0px;'>
+								Loop discovery
+							</h3>
+                <p> - Input: Genomic regions</p>
+                <p> - Output: Related chromatin loops</p>
+
+  							<a class="btn btn-danger btn-lg" onclick="funcbox3()">Start <i class="fa fa-clone"></i></a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+  <div class="row" >
+	  <div class="col-md-12 column" style="border-style:groove; display:none;" id="divbox1">
+      <h2><i class="fa fa-spinner"></i> Look for regulatory sites</h2>
+
+      <div class="col-md-4 column" style="padding-bottom:30px;">
+        <form role="form" method='post'>
+  				<div class="form-group">
+  					 <label for="">Gene list</label>
+             <textarea name='geneText' id="GeneListText" class="form-control" rows="5" placeholder="PAK4&#13;&#10;RPS26P5&#13;&#10;CXADR&#13;&#10;BTG3&#13;&#10;C21orf91"></textarea>
+  				</div>
+
+          <!--
+  				<div class="form-group" method='post'>
+  					<label for=""><p class="text-danger">OR</p> Upload a ".txt" file</label>
+            <input name='file4analyze1' type="file" id="file4analyze1"/>
+  					<p class="help-block">A list of gene symbol</p>
+  				</div>
+          -->
+
+          <div class="form-group">
+            <label for="">
+              <p class="text-danger">OR</p> Run example
+              <button type="button" class="btn btn-xs">
+                <a href="/analyze/?geneText=AC243547.3%0D%0AJAKMIP2-AS1%0D%0APAK4%0D%0AMREG%0D%0ACXADR%0D%0ABTG3%0D%0AMIAT%0D%0ACRYBA4%0D%0AARVCF#">Click</a>
+              </button>
+            </label>
+          </div>
+  				<button type="submit" class="btn btn-success" onclick="funcinfo1()">Submit</button>
+  			</form>
+
+        <div style='margin-top:30px; display:none' id="box1info">
+          <h4 style='margin-bottom:20px;'> Matched <span class="bg-danger">{{ matchGeneNum }}</span> genes with regulatory cohesin.</h4>
+          <div class="alert alert-warning">
+            <p><span class="glyphicon glyphicon-asterisk"></span> To achieve better visualization</p>
+            <ul>
+              <li>Cohesin peaks are merged (50kb)</li>
+              <li>Only top 10 (number of pairs) gene-cohesin pairs are shown</li>
+              <li>Only top 10 (number of TFs) transcriptional clusters are shown</li>
+            </ul>
+          </div>
+
+          <div class="alert alert-warning">
+            <span class="glyphicon glyphicon-asterisk"></span> Download the .csv file to check full list of matches
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-8 column">
+        {% if gene2peak != 'nodata' %}
+          <div class="" style="margin-bottom:15px;">
+            <h3>Click to download full result: <a href="{{ linkanalyze1 }}">Gene-Cohesin-TFs.csv</a> </h3>
+          </div>
+          <div id="chartdiv1" style="height: 600px; margin-bottom:20px;"></div>
+        {% endif %}
+      </div>
+
+    </div>
+
+    <div class="col-md-12 column" style="border-style:groove; display:none" id="divbox2">
+      <h2><i class="fa fa-spinner"></i> Look for target gene</h2>
+
+      <div class="col-md-4 column" style="padding-bottom:30px;">
+        <form role="form" method='post'>
+  				<div class="form-group">
+  					<label for="">Genomic regions </label>
+            <textarea name='peakText' id="PeakListText" class="form-control" rows="5" placeholder="chr21,25606719,25609028&#13;&#10;chr21,25560997,25563040&#13;&#10;chr21,25639050,25640444&#13;&#10;chr21,25734039,25736727&#13;&#10;chr21,25691774,25692151"></textarea>
+            <span class="help-block">Comma separated</span>
+          </div>
+
+<!--
+  				<div class="form-group">
+  					<label for=""><p class="text-danger">OR</p> Upload a ".bed" file</label>
+            <input type="file" id="exampleInputFile" />
+  					<p class="help-block">A list of peak (chromosome,start,end separated by tab)</p>
+  				</div>
+-->
+          <div class="form-group">
+            <label for="">
+              <p class="text-danger">OR</p> Run example
+              <button type="button" class="btn btn-xs">
+                <a href="/analyze/?peakText=chr9%2C131413348%2C131413956%0D%0Achr4%2C82704159%2C82704453%0D%0Achr12%2C116515022%2C116516937%0D%0Achr13%2C82495571%2C82495763%0D%0Achr3%2C6275736%2C6276406">Click</a>
+              </button>
+            </label>
+          </div>
+
+  				<button type="submit" class="btn btn-success">Submit</button>
+  			</form>
+        <!--box2提示信息-->
+        <div style='margin-top:30px; display:none' id="box2info">
+          <h4 style='margin-bottom:20px;'> Matched <span class="bg-danger">{{ matchPeakNum }}</span> cohesin peaks,
+            <span class="bg-danger">{{matchPeakWithGeneNum}}</span> of which targeted <span class="bg-danger">{{ matchGeneNum }}</span> genes.</h4>
+          <div class="alert alert-warning">
+            <p><span class="glyphicon glyphicon-asterisk"></span> To achieve better visualization</p>
+            <ul>
+              <li>Transcription factor are shown as family</li>
+              {% if PartialShow %}
+              <li>Only top 15 TFs family are shown</li>
+              <li>Cohesin peaks are merged (5kb)</li>
+              {% endif %}
+            </ul>
+          </div>
+
+          <div class="alert alert-warning">
+            <span class="glyphicon glyphicon-asterisk"></span> Download the .csv file to check detailed matches
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-md-8 column">
+        {% if peak2gene != 'nodata' %}
+          <div class="" style="margin-bottom:15px; margin-top:0px;">
+            <h3>Click to download full result: <a href="{{ linkanalyze2_1 }}">Cohesin-Genes-Pathway.csv</a>
+              and <a href="{{ linkanalyze2_2 }}">Pathway-details.csv</a>
+            </h3>
+          </div>
+          <div id="chartdiv2" style="height: 600px; margin-bottom:20px;"></div>
+        {% endif %}
+      </div>
+
+    </div>
+
+    <div class="col-md-12 column" style="border-style:groove; display:none" id="divbox3">
+      <h2><i class="fa fa-spinner"></i> Discover loops based on genomic regions</h2>
+
+      <div class="col-md-4 column" style="padding-bottom:30px;">
+        <form role="form" enctype="multipart/form-data" method='post'>
+
+  				<div class="form-group">
+  					<label for="">Upload a ".bed" file</label>
+            <input name='file4analyze3' type="file" id="exampleInputFile"/>
+  					<p class="help-block">Genomic region file in .bed format (chromosome,start,end, separated by tab) (maximum 5,000 regions)</p>
+  				</div>
+
+          <div class="form-group">
+            <label for="">
+              <p class="text-danger">OR</p> Run example
+              <button type="button" class="btn btn-xs">
+                <a href="/analyze/?runexample=runexample3">Click</a>
+              </button>
+            </label>
+          </div>
+
+  				<button type="submit" class="btn btn-success">Submit</button>
+  			</form>
+
+        <div style='margin-top:30px; display:none' id="box3info">
+
+          <div class="alert alert-warning">
+            <p><strong>Detected <span class="bg-danger">{{ inputnum }}</span> regions from input.</strong></p>
+          </div>
+
+          <div class="alert alert-warning">
+            <!--<h4 style='margin-bottom:20px;'>-->
+            <p>
+              <strong>Matched <span class="bg-danger">{{ loopnum }}</span> chromatin loops derived from <span class="bg-danger">{{studynum}}</span> studies.</strong>
+              <small>(one region may overlap several loops)</small>
+            </p>
+          </div>
+
+          <div class="alert alert-warning">
+            <p><strong><span class="glyphicon glyphicon-asterisk"></span> Download the .tsv file to check detailed matches.</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-8 column">
+        {% if topPeakCorr != 'nodata' %}
+          <div class="" style="margin-bottom:15px; margin-top:0px;">
+              <h4><span class="glyphicon glyphicon-ok"></span> Click to download full result of related-loops: <a href="{{ linkanalyze3_1 }}">Discovered_loops.csv</a> </h4>
+              <h4><span class="glyphicon glyphicon-ok"></span> Click to download the connected regions <span class="text-muted">(the other side of related loops)</span>: <a href="{{ linkanalyze3_2 }}">Connected_regions.csv</a> </h4>
+              <h4><span class="glyphicon glyphicon-ok"></span> Number of discovered loop from each study: </h4>
+          </div>
+          <div id="chartdiv3" style="height: 400px; margin-bottom:20px;"></div>
+        {% endif %}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  function funcbox1(){
+    $("#divbox2").hide()
+    $("#divbox3").hide()
+    $("#divbox1").fadeToggle();
+  };
+
+  function funcbox2(){
+    $("#divbox1").hide()
+    $("#divbox3").hide()
+    $("#divbox2").fadeToggle();
+  };
+
+  function funcbox3(){
+    $("#divbox1").hide()
+    $("#divbox2").hide()
+    $("#divbox3").fadeToggle();
+  };
+
+  function funcinfo1(){
+    $("#divbox1").show()
+  };
+
+  function funcinfo2(){
+    $("#divbox2").show()
+  };
+
+  function funcinfo3(){
+    $("#divbox3").show()
+  };
+
+  {% if submitblank == 'peakText' %}
+    funcinfo2()
+  {% elif submitblank == 'geneText' %}
+    funcinfo1()
+  {% endif %};
+
+  if ("{{ peak2gene | safe }}" != 'nodata')
+  {
+    $("#box2info").show();
+    $("#divbox2").show();
+
+    am4core.ready(function() {
+      // Themes begin
+      am4core.useTheme(am4themes_animated);
+      // Themes end
+
+      var chart = am4core.create("chartdiv2", am4charts.SankeyDiagram);
+      chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+      chart.data = {{ peak2gene | safe }};
+
+
+      let hoverState = chart.links.template.states.create("hover");
+      hoverState.properties.fillOpacity = 0.6;
+
+      chart.dataFields.fromName = "from";
+      chart.dataFields.toName = "to";
+      chart.dataFields.value = "value";
+
+      // for right-most label to fit
+      chart.paddingRight = 150;
+
+      // make nodes draggable
+      var nodeTemplate = chart.nodes.template;
+      nodeTemplate.inert = true;
+      nodeTemplate.readerTitle = "Drag me!";
+      nodeTemplate.showSystemTooltip = true;
+      nodeTemplate.width = 20;
+      nodeTemplate.nameLabel.label.hideOversized = true;
+
+      // make nodes draggable
+      var nodeTemplate = chart.nodes.template;
+      nodeTemplate.readerTitle = "Click to show/hide or drag to rearrange";
+      nodeTemplate.showSystemTooltip = true;
+      nodeTemplate.cursorOverStyle = am4core.MouseCursorStyle.pointer
+    });
+  };
+
+  if ("{{ gene2peak | safe }}" != 'nodata')
+  {
+    am4core.ready(function() {
+      // Themes begin
+      am4core.useTheme(am4themes_animated);
+      // Themes end
+
+      var chart = am4core.create("chartdiv1", am4charts.SankeyDiagram);
+      chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
+
+      chart.data = {{ gene2peak | safe }};
+
+
+      let hoverState = chart.links.template.states.create("hover");
+      hoverState.properties.fillOpacity = 0.6;
+
+      chart.dataFields.fromName = "from";
+      chart.dataFields.toName = "to";
+      chart.dataFields.value = "value";
+
+      // for right-most label to fit
+      chart.paddingRight = 150;
+
+      // make nodes draggable
+      var nodeTemplate = chart.nodes.template;
+      nodeTemplate.inert = true;
+      nodeTemplate.readerTitle = "Drag me!";
+      nodeTemplate.showSystemTooltip = true;
+      nodeTemplate.width = 20;
+      nodeTemplate.nameLabel.label.hideOversized = true;
+
+      // make nodes draggable
+      var nodeTemplate = chart.nodes.template;
+      nodeTemplate.readerTitle = "Click to show/hide or drag to rearrange";
+      nodeTemplate.showSystemTooltip = true;
+      nodeTemplate.cursorOverStyle = am4core.MouseCursorStyle.pointer
+
+      $("#box1info").show()
+      $("#divbox1").show()
+    }); // end am4core.ready()
+  };
+
+  if ("{{ topPeakCorr | safe }}" != 'nodata')
+  {
+    $("#box3info").show();
+    $("#divbox3").show();
+    plotbarfunc({{ topPeakCorr | safe }})
+  }
+
+</script>
+
+
+{% endblock %}

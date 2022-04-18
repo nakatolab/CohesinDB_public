@@ -1,0 +1,645 @@
+ALX3,Paired-related HD factors
+AR,Steroid hormone receptors (NR3)
+ARGFX,Paired-related HD factors
+ARNT2,PAS domain factors
+ARNT::HIF1A,PAS domain factors::PAS domain factors
+ASCL1(var.2),MyoD / ASC-related factors
+ASCL1,MyoD / ASC-related factors
+ATF2,Jun-related factors
+ATF3,Jun-related factors
+ATF4,ATF-4-related factors
+ATF6,Jun-related factors
+ATF7,Jun-related factors
+ATOH1(var.2),Tal-related factors
+ATOH7,Tal-related factors
+BACH1,Jun-related factors
+BACH2(var.2),Jun-related factors
+BACH2,Jun-related factors
+BARHL1,NK-related factors
+BARHL2,NK-related factors
+BARX1,NK-related factors
+BARX2,NK-related factors
+BATF,B-ATF-related factors
+BATF3,B-ATF-related factors
+BATF::JUN,B-ATF-related factors::Jun-related factors
+BCL6,More than 3 adjacent zinc finger factors
+BCL6B,More than 3 adjacent zinc finger factors
+BHLHA15(var.2),Tal-related factors
+BHLHE22(var.2),Tal-related factors
+BHLHE22,Tal-related factors
+BHLHE23,Tal-related factors
+BHLHE40,Hairy-related factors
+BHLHE41,Hairy-related factors
+BSX,NK-related factors
+CDX1,HOX-related factors
+CDX2,HOX-related factors
+CDX4,HOX-related factors
+CEBPA,C/EBP-related factors
+CEBPB,C/EBP-related factors
+CEBPD,C/EBP-related factors
+CEBPE,C/EBP-related factors
+CEBPG(var.2),C/EBP-related factors
+CEBPG,C/EBP-related factors
+CENPB,
+CLOCK,PAS domain factors
+CREB1,CREB-related factors
+CREB3,CREB-related factors
+CREB3L1,CREB-related factors
+CREB3L4(var.2),CREB-related factors
+CREB3L4,CREB-related factors
+CREM,CREB-related factors
+CTCF,More than 3 adjacent zinc finger factors
+CTCFL,More than 3 adjacent zinc finger factors
+CUX1,HD-CUT factors
+CUX2,HD-CUT factors
+DBP,C/EBP-related factors
+DLX5,NK-related factors
+DLX6,NK-related factors
+DMRT3,DMRT factors
+DMRTA2,DMRT factors
+DMRTC2,DMRT factors
+DPRX,Paired-related HD factors
+DRGX,Paired-related HD factors
+DUX4,Paired-related HD factors
+DUXA,Paired-related HD factors
+E2F1,E2F-related factors
+E2F2,E2F-related factors
+E2F3,E2F-related factors
+E2F4,E2F-related factors
+E2F6,E2F-related factors
+E2F7,E2F-related factors
+E2F8,E2F-related factors
+EBF1,Early B-Cell Factor-related factors
+EBF3,Early B-Cell Factor-related factors
+EGR1,Three-zinc finger Kruppel-related factors
+EGR2,Three-zinc finger Krüppel-related factors
+EGR3,Three-zinc finger Krüppel-related factors
+EGR4,Three-zinc finger Krüppel-related factors
+EHF,Ets-related factors
+ELF1,Ets-related factors
+ELF2,Ets-related factors
+ELF3,Ets-related factors
+ELF4,Ets-related factors
+ELF5,Ets-related factors
+ELK1,Ets-related factors
+ELK3,Ets-related factors
+ELK4,Ets-related factors
+EMX1,NK-related factors
+EMX2,NK-related factors
+EN1,NK-related factors
+EN2,NK-related factors
+EOMES,TBrain-related factors
+ERF,Ets-related factors
+ERG,Ets-related factors
+ESR1,Steroid hormone receptors (NR3)
+ESR2,Steroid hormone receptors (NR3)
+ESRRA,Steroid hormone receptors (NR3)
+ESRRB,Steroid hormone receptors (NR3)
+ESX1,Paired-related HD factors
+ETS1,Ets-related factors
+ETS2,Ets-related factors
+ETV1,Ets-related factors
+ETV2,Ets-related factors
+ETV3,Ets-related factors
+ETV4,Ets-related factors
+ETV5,Ets-related factors
+ETV6,Ets-related factors
+EVX1,HOX-related factors
+EVX2,HOX-related factors
+EWSR1-FLI1,Ets-related factors
+FERD3L,Tal-related factors
+FEV,Ets-related factors
+FIGLA,Tal-related factors
+FLI1,Ets-related factors
+FOS,Fos-related factors
+FOS::JUN(var.2),Fos-related factors::Jun-related factors
+FOS::JUN,Fos-related factors::Jun-related factors
+FOS::JUNB,Fos-related factors::Jun-related factors
+FOS::JUND,Fos-related factors::Jun-related factors
+FOSB::JUN,Fos-related factors::Jun-related factors
+FOSB::JUNB(var.2),Fos-related factors::Jun-related factors
+FOSB::JUNB,Fos-related factors::Jun-related factors
+FOSL1,Fos-related factors
+FOSL1::JUN(var.2),Fos-related factors::Jun-related factors
+FOSL1::JUN,Fos-related factors::Jun-related factors
+FOSL1::JUNB,Fos-related factors::Jun-related factors
+FOSL1::JUND(var.2),Fos-related factors::Jun-related factors
+FOSL1::JUND,Fos-related factors::Jun-related factors
+FOSL2,Fos-related factors
+FOSL2::JUN(var.2),Fos-related factors::Jun-related factors
+FOSL2::JUN,Fos-related factors::Jun-related factors
+FOSL2::JUNB(var.2),Fos-related factors::Jun-related factors
+FOSL2::JUNB,Fos-related factors::Jun-related factors
+FOSL2::JUND(var.2),Fos-related factors::Jun-related factors
+FOSL2::JUND,Fos-related factors::Jun-related factors
+FOXA1,Forkhead box (FOX) factors
+FOXA2,Forkhead box (FOX) factors
+FOXA3,Forkhead box (FOX) factors
+FOXB1,Forkhead box (FOX) factors
+FOXC1,Forkhead box (FOX) factors
+FOXC2,Forkhead box (FOX) factors
+FOXD1,Forkhead box (FOX) factors
+FOXD2,Forkhead box (FOX) factors
+FOXE1,Forkhead box (FOX) factors
+FOXF2,Forkhead box (FOX) factors
+FOXG1,Forkhead box (FOX) factors
+FOXH1,Forkhead box (FOX) factors
+FOXI1,Forkhead box (FOX) factors
+FOXK1,Forkhead box (FOX) factors
+FOXK2,Forkhead box (FOX) factors
+FOXL1,Forkhead box (FOX) factors
+FOXN3,Forkhead box (FOX) factors
+FOXO3,Forkhead box (FOX) factors
+FOXO4,Forkhead box (FOX) factors
+FOXO6,Forkhead box (FOX) factors
+FOXP1,Forkhead box (FOX) factors
+FOXP2,Forkhead box (FOX) factors
+FOXP3,Forkhead box (FOX) factors
+GABPA,Ets-related factors
+GATA1,GATA-type zinc fingers
+GATA1::TAL1,GATA-type zinc fingers::Tal-related factors
+GATA2,GATA-type zinc fingers
+GATA3,GATA-type zinc fingers
+GATA4,GATA-type zinc fingers
+GATA5,GATA-type zinc fingers
+GATA6,GATA-type zinc fingers
+GBX1,HOX-related factors
+GBX2,HOX-related factors
+GCM1,GCM factors
+GCM2,GCM factors
+GFI1,More than 3 adjacent zinc finger factors
+GLI2,More than 3 adjacent zinc finger factors
+GLI3,More than 3 adjacent zinc finger factors
+GLIS1,More than 3 adjacent zinc finger factors
+GLIS2,More than 3 adjacent zinc finger factors
+GLIS3,More than 3 adjacent zinc finger factors
+GMEB2,GMEB
+GRHL1,Grainyhead-related factors
+GRHL2,Grainyhead-related factors
+GSC,Paired-related HD factors
+GSC2,Paired-related HD factors
+GSX1,HOX-related factors
+GSX2,HOX-related factors
+HAND2,Tal-related factors
+HES1,Hairy-related factors
+HES2,Hairy-related factors
+HES5,Hairy-related factors
+HES6,Hairy-related factors
+HES7,Hairy-related factors
+HESX1,Paired-related HD factors
+HEY1,Hairy-related factors
+HEY2,Hairy-related factors
+HIC2,Factors with multiple dispersed zinc fingers
+HIF1A,PAS domain factors
+HINFP,Factors with multiple dispersed zinc fingers
+HLF,C/EBP-related
+HLF,C/EBP-related factors
+HMBOX1,POU domain factors
+HNF1A,POU domain factors
+HNF1B,POU domain factors
+HNF4A(var.2),RXR-related receptors (NR2)
+HNF4A,RXR-related receptors (NR2)
+HNF4G,RXR-related receptors (NR2)
+HOXA1,HOX-related factors
+HOXA10,HOX-related factors
+HOXA13,HOX-related factors
+HOXA2,HOX-related factors
+HOXA4,HOX-related factors
+HOXA5,HOX-related factors
+HOXA6,HOX-related factors
+HOXA7,HOX-related factors
+HOXA9,HOX-related factors
+HOXB13,HOX-related factors
+HOXB2,HOX-related factors
+HOXB3,HOX-related factors
+HOXB4,HOX-related factors
+HOXB5,HOX-related factors
+HOXB6,HOX-related factors
+HOXB7,HOX-related factors
+HOXB8,HOX-related factors
+HOXB9,HOX-related factors
+HOXC10,HOX-related factors
+HOXC11,HOX-related factors
+HOXC12,HOX-related factors
+HOXC13,HOX-related factors
+HOXC4,HOX-related factors
+HOXC8,HOX-related factors
+HOXC9,HOX-related factors
+HOXD10,HOX-related factors
+HOXD11,HOX-related factors
+HOXD12,HOX-related factors
+HOXD13,HOX-related factors
+HOXD3,HOX-related factors
+HOXD4,HOX-related factors
+HOXD8,HOX-related factors
+HOXD9,HOX-related factors
+HSF1,HSF factors
+HSF2,HSF factors
+HSF4,HSF factors
+IKZF1,Factors with multiple dispersed zinc fingers
+INSM1,Factors with multiple dispersed zinc fingers
+IRF1,Interferon-regulatory factors
+IRF2,Interferon-regulatory factors
+IRF3,Interferon-regulatory factors
+IRF4,Interferon-regulatory factors
+IRF5,Interferon-regulatory factors
+IRF6,Interferon-regulatory factors
+IRF7,Interferon-regulatory factors
+IRF8,Interferon-regulatory factors
+IRF9,Interferon-regulatory factors
+ISL2,HD-LIM factors
+ISX,Paired-related HD factors
+JDP2(var.2),Fos-related factors
+JDP2,Fos-related factors
+JUN(var.2),Jun-related factors
+JUN,Jun-related factors
+JUN::JUNB(var.2),Jun-related factors::Jun-related factors
+JUN::JUNB,Jun-related factors::Jun-related factors
+JUNB(var.2),Jun-related factors
+JUNB,Jun-related factors
+JUND(var.2),Jun-related factors
+JUND,Jun-related factors
+KLF10,Three-zinc finger Kruppel-related factors
+KLF11,Three-zinc finger Kruppel-related factors
+KLF13,Three-zinc finger Krüppel-related factors
+KLF14,Three-zinc finger Krüppel-related factors
+KLF15,Three-zinc finger Kruppel-related factors
+KLF16,Three-zinc finger Krüppel-related factors
+KLF17,Three-zinc finger Kruppel-related factors
+KLF2,Three-zinc finger Kruppel-related factors
+KLF3,Three-zinc finger Kruppel-related factors
+KLF4,Three-zinc finger Kruppel-related factors
+KLF5,Three-zinc finger Krüppel-related factors
+KLF6,Three-zinc finger Kruppel-related factors
+KLF9,Three-zinc finger Kruppel-related factors
+LBX1,NK-related factors
+LBX2,NK-related factors
+LEF1,TCF-7-related factors
+LHX1,HD-LIM factors
+LHX2,HD-LIM factors
+LHX5,HD-LIM factors
+LHX6,HD-LIM factors
+LHX9,HD-LIM factors
+LMX1A,HD-LIM factors
+LMX1B,HD-LIM factors
+MAF,Maf-related factors
+MAF::NFE2,Maf-related factors::Jun-related factors
+MAFA,Maf-related factors
+MAFF,Maf-related factors
+MAFG,Maf-related factors
+MAFK,Maf-related factors
+MAX,bHLH-ZIP factors
+MAX::MYC,bHLH-ZIP factors::bHLH-ZIP factors
+MAZ,More than 3 adjacent zinc finger factors
+MEF2A,Regulators of differentiation
+MEF2B,Regulators of differentiation
+MEF2C,Regulators of differentiation
+MEF2D,Regulators of differentiation
+MEIS1(var.2),TALE-type homeo domain factors
+MEIS1,TALE-type homeo domain factors
+MEIS2(var.2),TALE-type homeo domain factors
+MEIS2,TALE-type homeo domain factors
+MEIS3,TALE-type homeo domain factors
+MEOX1,HOX-related factors
+MEOX2,HOX-related factors
+MGA,TBX6-related factors
+MITF,bHLH-ZIP factors
+MIXL1,Paired-related HD factors
+MLX,bHLH-ZIP factors
+MLXIPL,bHLH-ZIP factors
+MNT,bHLH-ZIP factors
+MNX1,HOX-related factors
+MSANTD3,Myb/SANT domain factors
+MSC,Tal-related factors
+MSGN1,Tal-related factors
+MSX1,NK-related factors
+MSX2,NK-related factors
+MTF1,More than 3 adjacent zinc finger factors
+MXI1,bHLH-ZIP factors
+MYB,Myb/SANT domain factors
+MYBL1,Myb/SANT domain factors
+MYBL2,Myb/SANT domain factors
+MYC,bHLH-ZIP factors
+MYCN,bHLH-ZIP factors
+MYF5,MyoD / ASC-related factors
+MYF6,MyoD / ASC-related factors
+MYOD1,MyoD / ASC-related factors
+MYOG,MyoD / ASC-related factors
+MZF1(var.2),More than 3 adjacent zinc finger factors
+MZF1,More than 3 adjacent zinc finger factors
+NEUROD1,Tal-related factors
+NEUROD2,Tal-related factors
+NEUROG1,Tal-related factors
+NEUROG2(var.2),Tal-related factors
+NEUROG2,Tal-related factors
+NFATC2,NFAT-related factors
+NFATC3,NFAT-related factors
+NFATC4,NFAT-related factors
+NFE2,Jun-related factors
+NFE2L1,Jun-related factors
+NFE2L2,Jun-related factors
+NFIA,Nuclear factor 1
+NFIB,Nuclear factor 1
+NFIC(var.2),Nuclear factor 1
+NFIC,Nuclear factor 1
+NFIC::TLX1,Nuclear factor 1::NK-related factors
+NFIL3,C/EBP-related
+NFIL3,C/EBP-related factors
+NFIX(var.2),Nuclear factor 1
+NFIX,Nuclear factor 1
+NFKB1,NF-kappaB-related factors
+NFKB2,NF-kappaB-related factors
+NFYA,NFY
+NFYB,
+NFYB,NFY
+NFYC,
+NHLH1,Tal-related factors
+NHLH2,Tal-related factors
+NKX2-2,NK-related factors
+NKX2-3,NK-related factors
+NKX2-5,NK-related factors
+NKX2-8,NK-related factors
+NKX3-1,NK-related factors
+NKX3-2,NK-related factors
+NKX6-1,NK-related factors
+NKX6-2,NK-related factors
+NKX6-3,NK-related factors
+NOTO,NK-related factors
+NR1D1,Thyroid hormone receptor-related factors (NR1)
+NR1D2,Thyroid hormone receptor-related factors (NR1)
+NR1H2::RXRA,Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)
+NR1H4,Thyroid hormone receptor-related factors (NR1)
+NR1H4::RXRA,Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)
+NR1I2,Thyroid hormone receptor-related factors (NR1)
+NR1I3,Thyroid hormone receptor-related factors (NR1)
+NR2C1,RXR-related receptors (NR2)
+NR2C2(var.2),RXR-related receptors (NR2)
+NR2C2,RXR-related receptors (NR2)
+NR2F1(var.2),RXR-related receptors (NR2)
+NR2F1(var.3),RXR-related receptors (NR2)
+NR2F1,RXR-related receptors (NR2)
+NR2F2,RXR-related receptors (NR2)
+NR2F6(var.3),RXR-related receptors (NR2)
+NR3C1,Steroid hormone receptors (NR3)
+NR3C2,Steroid hormone receptors (NR3)
+NR4A1,NGFI-B-related receptors (NR4)
+NR4A2,NGFI-B-related receptors (NR4)
+NR4A2::RXRA,NGFI-B-related receptors (NR4)::RXR-related receptors (NR2)
+NR5A1,FTZ-F1-related receptors (NR5)
+NR6A1,GCNF-related receptors (NR6)
+NRF1,Jun-related factors
+NRL,Maf-related factors
+OLIG1,Tal-related factors
+OLIG2,Tal-related factors
+OLIG3,Tal-related factors
+ONECUT1,HD-CUT factors
+ONECUT2,HD-CUT factors
+ONECUT3,HD-CUT factors
+OSR1,Other factors with up to three adjacent zinc fingers
+OSR2,More than 3 adjacent zinc finger factors
+OTX1,Paired-related HD factors
+OTX2,Paired-related HD factors
+OVOL1,More than 3 adjacent zinc finger factors
+OVOL2,More than 3 adjacent zinc finger factors
+PAX1,Paired domain only
+PAX3(var.2),Paired plus homeo domain
+PAX3,Paired plus homeo domain
+PAX4,Paired plus homeo domain
+PAX5,Paired domain only
+PAX6,Paired plus homeo domain
+PAX7,Paired plus homeo domain
+PAX9,Paired domain only
+PBX1,TALE-type homeo domain factors
+PBX2,TALE-type homeo domain factors
+PBX3,TALE-type homeo domain factors
+PDX1,HOX-related factors
+PHOX2A,Paired-related HD factors
+PHOX2B,Paired-related HD factors
+PITX1,Paired-related HD factors
+PITX2,Paired-related HD factors
+PITX3,Paired-related HD factors
+PKNOX1,TALE-type homeo domain factors
+PKNOX2,TALE-type homeo domain factors
+PLAG1,More than 3 adjacent zinc finger factors
+PLAGL2,More than 3 adjacent zinc finger factors
+POU1F1,POU domain factors
+POU2F1,POU domain factors
+POU2F2,POU domain factors
+POU2F3,POU domain factors
+POU3F1,POU domain factors
+POU3F2,POU domain factors
+POU3F3,POU domain factors
+POU3F4,POU domain factors
+POU4F1,POU domain factors
+POU4F2,POU domain factors
+POU4F3,POU domain factors
+POU5F1,POU domain factors
+POU5F1B,POU domain factors
+POU6F1(var.2),POU domain factors
+POU6F1,POU domain factors
+POU6F2,POU domain factors
+PPARA::RXRA,Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)
+PPARD,Thyroid hormone receptor-related factors (NR1)
+PPARG,Thyroid hormone receptor-related factors (NR1)
+PPARG::RXRA,Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)
+PRDM1,More than 3 adjacent zinc finger factors
+PRDM4,Factors with multiple dispersed zinc fingers
+PROP1,Paired-related HD factors
+PROX1,HD-PROS factors
+PRRX1,Paired-related HD factors
+PRRX2,Paired-related HD factors
+RARA(var.2),Thyroid hormone receptor-related factors (NR1)
+RARA,Thyroid hormone receptor-related factors (NR1)
+RARA::RXRA,Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)
+RARA::RXRG,Thyroid hormone receptor-related factors (NR1)::RXR-related receptors (NR2)
+RARB(var.3),Thyroid hormone receptor-related factors (NR1)
+RARG(var.3),Thyroid hormone receptor-related factors (NR1)
+RAX,Paired-related HD factors
+RAX2,Paired-related HD factors
+RBPJ,CSL-related factors
+REL,NF-kappaB-related factors
+RELA,NF-kappaB-related factors
+RELB,NF-kappaB-related factors
+REST,Factors with multiple dispersed zinc fingers
+RFX1,RFX-related factors
+RFX2,RFX-related factors
+RFX3,RFX-related factors
+RFX4,RFX-related factors
+RFX5,RFX-related factors
+RFX7,RFX-related factors
+RHOXF1,Paired-related HD factors
+RORA(var.2),Thyroid hormone receptor-related factors (NR1)
+RORA,Thyroid hormone receptor-related factors (NR1)
+RORB,Thyroid hormone receptor-related factors (NR1)
+RORC,Thyroid hormone receptor-related factors (NR1)
+RREB1,Factors with multiple dispersed zinc fingers
+RUNX1,Runt-related factors
+RUNX2,Runt-related factors
+RUNX3,Runt-related factors
+RXRA::VDR,RXR-related receptors (NR2)::Thyroid hormone receptor-related factors (NR1)
+RXRB(var.2),RXR-related receptors (NR2)
+RXRB,RXR-related receptors (NR2)
+RXRG(var.2),RXR-related receptors (NR2)
+RXRG,RXR-related receptors (NR2)
+SCRT1,More than 3 adjacent zinc finger factors
+SCRT2,More than 3 adjacent zinc finger factors
+SHOX,Paired-related HD factors
+SIX1,HD-SINE factors
+SIX2,HD-SINE factors
+SMAD2::SMAD3::SMAD4,SMAD factors::SMAD factors::SMAD factors
+SMAD3,SMAD factors
+SMAD5,SMAD factors
+SNAI1,More than 3 adjacent zinc finger factors
+SNAI2,More than 3 adjacent zinc finger factors
+SNAI3,More than 3 adjacent zinc finger factors
+SOHLH2,PAS domain factors
+SOX10,SOX-related factors
+SOX12,SOX-related factors
+SOX13,SOX-related factors
+SOX14,SOX-related factors
+SOX15,SOX-related factors
+SOX18,SOX-related factors
+SOX2,SOX-related factors
+SOX21,SOX-related factors
+SOX4,SOX-related factors
+SOX8,SOX-related factors
+SOX9,SOX-related factors
+SP1,Three-zinc finger Kruppel-related factors
+SP1,Three-zinc finger Krüppel-related factors
+SP2,Three-zinc finger Kruppel-related factors
+SP2,Three-zinc finger Krüppel-related factors
+SP3,Three-zinc finger Kruppel-related factors
+SP3,Three-zinc finger Krüppel-related factors
+SP4,Three-zinc finger Krüppel-related factors
+SP8,Three-zinc finger Krüppel-related factors
+SP9,Three-zinc finger Kruppel-related factors
+SPDEF,Ets-related factors
+SPI1,Ets-related factors
+SPIB,Ets-related factors
+SPIC,Ets-related factors
+SREBF1(var.2),bHLH-ZIP factors
+SREBF1,bHLH-ZIP factors
+SREBF2(var.2),bHLH-ZIP factors
+SREBF2,bHLH-ZIP factors
+SRF,Responders to external signals (SRF/RLM1)
+SRY,SOX-related factors
+STAT1,STAT factors
+STAT1::STAT2,STAT factors::STAT factors
+STAT3,STAT factors
+TAL1::TCF3,Tal-related factors::E2A-related factors
+TBR1,TBrain-related factors
+TBX1,TBX1-related factors
+TBX15,TBX1-related factors
+TBX18,TBX1-related factors
+TBX19,Brachyury-related factors
+TBX2,TBX2-related factors
+TBX20,TBX1-related factors
+TBX21,TBrain-related factors
+TBX3,TBX2-related factors
+TBX4,TBX2-related factors
+TBX5,TBX2-related factors
+TBX6,TBX6-related factors
+TBXT,Brachyury-related factors
+TCF12(var.2),E2A-related factors
+TCF21(var.2),Tal-related factors
+TCF3,E2A-related factors
+TCF4,E2A-related factors
+TCF7,TCF-7-related factors
+TCF7L1,TCF-7-related factors
+TCF7L2,TCF-7-related factors
+TCFL5,PAS domain factors
+TEAD1,TEF-1-related factors
+TEAD2,TEF-1-related factors
+TEAD3,TEF-1-related factors
+TEAD4,TEF-1-related factors
+TEF,TEF-1-related factors
+TFAP2A(var.2),AP-2
+TFAP2A(var.3),AP-2
+TFAP2A,AP-2
+TFAP2B(var.2),AP-2
+TFAP2B(var.3),AP-2
+TFAP2B,AP-2
+TFAP2C(var.2),AP-2
+TFAP2C(var.3),AP-2
+TFAP2C,AP-2
+TFAP2E,AP-2
+TFAP4(var.2),bHLH-ZIP factors
+TFAP4,bHLH-ZIP factors
+TFCP2,CP2-related factors
+TFDP1,E2F-related factors
+TFE3,bHLH-ZIP factors
+TFEB,bHLH-ZIP factors
+TFEC,bHLH-ZIP factors
+TGIF1,TALE-type homeo domain factors
+TGIF2,TALE-type homeo domain factors
+TGIF2LX,TALE-type homeo domain factors
+TGIF2LY,TALE-type homeo domain factors
+THAP1,THAP-related factors
+THAP11,THAP-related factors
+THRB(var.2),Thyroid hormone receptor-related factors (NR1)
+THRB(var.3),Thyroid hormone receptor-related factors (NR1)
+THRB,Thyroid hormone receptor-related factors (NR1)
+TLX2,NK-related factors
+TP53,p53-related factors
+TP63,p53-related factors
+TP73,p53-related factors
+TWIST1,Tal-related factors
+UNCX,Paired-related HD factors
+USF1,bHLH-ZIP factors
+USF2,bHLH-ZIP factors
+VAX1,NK-related factors
+VAX2,NK-related factors
+VDR,Thyroid hormone receptor-related factors (NR1)
+VENTX,NK-related factors
+VEZF1,More than 3 adjacent zinc finger factors
+VSX1,Paired-related HD factors
+VSX2,Paired-related HD factors
+XBP1,XBP-1-related factors
+YY1,More than 3 adjacent zinc finger factors
+YY2,More than 3 adjacent zinc finger factors
+ZBED1,BED zinc finger factors
+ZBTB12,More than 3 adjacent zinc finger factors
+ZBTB14,More than 3 adjacent zinc finger factors
+ZBTB18,More than 3 adjacent zinc finger factors
+ZBTB26,More than 3 adjacent zinc finger factors
+ZBTB32,Other factors with up to three adjacent zinc fingers
+ZBTB33,Other factors with up to three adjacent zinc fingers
+ZBTB6,More than 3 adjacent zinc finger factors
+ZBTB7A,More than 3 adjacent zinc finger factors
+ZBTB7B,More than 3 adjacent zinc finger factors
+ZBTB7C,More than 3 adjacent zinc finger factors
+ZEB1,HD-ZF factors
+ZFP42,More than 3 adjacent zinc finger factors
+ZFP57,Factors with multiple dispersed zinc fingers
+ZIC1,More than 3 adjacent zinc finger factors
+ZIC3,More than 3 adjacent zinc finger factors
+ZIC4,More than 3 adjacent zinc finger factors
+ZIC5,More than 3 adjacent zinc finger factors
+ZKSCAN1,More than 3 adjacent zinc finger factors
+ZKSCAN5,Factors with multiple dispersed zinc fingers
+ZNF135,More than 3 adjacent zinc finger factors
+ZNF136,More than 3 adjacent zinc finger factors
+ZNF140,More than 3 adjacent zinc finger factors
+ZNF143,More than 3 adjacent zinc finger factors
+ZNF148,More than 3 adjacent zinc finger factors
+ZNF16,More than 3 adjacent zinc finger factors
+ZNF24,More than 3 adjacent zinc finger factors
+ZNF263,More than 3 adjacent zinc finger factors
+ZNF274,More than 3 adjacent zinc finger factors
+ZNF282,More than 3 adjacent zinc finger factors
+ZNF317,More than 3 adjacent zinc finger factors
+ZNF341,Factors with multiple dispersed zinc fingers
+ZNF354C,More than 3 adjacent zinc finger factors
+ZNF382,Factors with multiple dispersed zinc fingers
+ZNF384,More than 3 adjacent zinc finger factors
+ZNF410,More than 3 adjacent zinc finger factors
+ZNF449,More than 3 adjacent zinc finger factors
+ZNF460,More than 3 adjacent zinc finger factors
+ZNF528,More than 3 adjacent zinc finger factors
+ZNF652,More than 3 adjacent zinc finger factors
+ZNF682,More than 3 adjacent zinc finger factors
+ZNF684,More than 3 adjacent zinc finger factors
+ZNF740,Other factors with up to three adjacent zinc fingers
+ZNF75D,More than 3 adjacent zinc finger factors
+ZSCAN29,More than 3 adjacent zinc finger factors
+ZSCAN4,More than 3 adjacent zinc finger factors

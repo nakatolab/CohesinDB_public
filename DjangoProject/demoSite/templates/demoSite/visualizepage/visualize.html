@@ -1,0 +1,293 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+  <!-- Follow is for washu browser -->
+
+  <!-- online
+  <script src="https://igv.org/web/release/2.0.1/dist/igv.min.js"></script>
+  <script src="https://igv.org/web/jb/release/1.0.0/dist/juicebox.min.js"></script>
+  -->
+  <!-- local -->
+  <script src="{% static 'js/igv_v2_0_1.min.js' %}"></script>
+  <script src="{% static 'js/juicebox_v1_0_0.min.js' %}"></script>
+
+  <!-- online
+  <script src="https://aframe.io/releases/0.8.0/aframe.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+  -->
+
+  <!-- local -->
+  <script src="{% static 'js/aframe.min.js' %}"></script>
+  <script src="{% static 'js/popper.min.js' %}"></script>
+  <script src="{% static 'js/bootstrap_v4_0_0.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/bootstrap_v4_0_0.min.css' %}">
+
+  <!--<script src="https://target.wustl.edu/dli/eg/epgg.js"></script>-->
+  <!--<link rel="stylesheet" href="https://unpkg.com/epgg@latest/umd/epgg.css">-->
+  <script src="{% static 'js/epgg.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'css/epgg_v47.2.8.css' %}">
+  <link rel="stylesheet" href="{% static 'css/demoSite_bs4.css' %}">
+</head>
+
+<body>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #222222">
+
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+					<span class="navbar-toggler-icon"></span>
+				</button> <a class="navbar-brand" href="/" style="color: #9D9D9D">CohesinDB</a>
+
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="navbar-nav">
+            <li {% if section == "home" %}class="active"{% endif %}>
+               <a class="nav-link" href="/"><span class="fa fa-leaf"></span> Home  </a>
+            </li>
+            <li {% if section == "browse" %}class="nav-item dropdown active"{% else %}class="nav-item dropdown"{% endif %}>
+							 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"><span class="fa fa-search"></span> Browse </a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								 <a class="dropdown-item" href="/browse/"><i class="fas fa-atlas"></i> Cohesin binding sites</a>
+                 <div class="dropdown-divider"></div>
+                 <a class="dropdown-item" href="/browseloop/"><i class="fas fa-atlas"></i> Cohesin-mediated interactions</a>
+                 <div class="dropdown-divider"></div>
+                 <a class="dropdown-item" href="/browsegene/"><i class="fas fa-atlas"></i> Cohesin-regulated genes</a>
+							</div>
+						</li>
+            <li {% if section == "analyze" %}class="active"{% endif %}>
+               <a class="nav-link" href="{% url 'demoSite:analyzepage' %}"><span class="fa fa-random"></span> Analyze  </a>
+            </li>
+            <li {% if section == "visualize" %}class="active"{% endif %}>
+               <a class="nav-link" href="{% url 'demoSite:visualizepage' %}"><span class="fa fa-eye"></span> Visualize  </a>
+            </li>
+
+            <li {% if section == "data" %}class="active"{% endif %}>
+               <a class="nav-link" href="{% url 'demoSite:datapage' %}"><span class="fa fa-th"></span> Data  </a>
+            </li>
+            <li {% if section == "statistic" %}class="active"{% endif %}>
+               <a class="nav-link" href="{% url 'demoSite:statisticpage' %}"><span class="fa fa-signal"></span> Statistic  </a>
+            </li>
+            <li {% if section == "download" %}class="active"{% endif %}>
+               <a class="nav-link" href="{% url 'demoSite:downloadpage' %}"><span class="fa fa-download"></span> Download  </a>
+            </li>
+            <li {% if section == "help" %}class="active"{% endif %}>
+               <a class="nav-link" href="{% url 'demoSite:helppage' %}"><span class="fa fa-briefcase"></span> Document  </a>
+            </li>
+          </ul>
+<!--
+					<form class="form-inline">
+						<input class="form-control mr-sm-2" type="text" />
+						<button class="btn btn-primary my-2 my-sm-0" type="submit">
+							Search
+						</button>
+					</form>
+-->
+					<ul class="navbar-nav ml-md-auto">
+						<li class="nav-item dropdown">
+							 <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown">About</a>
+							<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+								 <a class="dropdown-item" href="#">Github</a>
+                 <a class="dropdown-item" href="#">Publication</a>
+                 <a class="dropdown-item" href="#">Contact</a>
+								 <div class="dropdown-divider"></div>
+                 <a class="dropdown-item" href="http://nakatolab.iqb.u-tokyo.ac.jp/index-e.html">Nakato lab</a>
+                 <div class="dropdown-divider"></div>
+                 <a class="dropdown-item" href="/admin/">Admin site</a>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript" src="{% static 'js/jquery.chained.min.js' %}"></script>
+<div class="container">
+  <h1></h1>
+  <h2><i class="fa fa-television"></i>  Select the data to visualize <small>(OR <a href="/visualize/CDBD00911+CDBD00907+CDBD00026+CDBD00027+CDBD01419+CDBD01326/"><b>-->Click<--</b></a> to show examples)</small></h2>
+  <hr style="width: 100%; height: 1px; border: none; background-color: #282828">
+	<div class="row">
+		<div class="col-md-3">
+      <div class="form-group">
+          <label for="exampleFormControlSelect1"><h4>> Assay type (*Must)</h4></label>
+          <select class="form-control" id="exampleFormControlSelect1">
+            <option value="emptylabel1">--------Select--------</option>
+            {% for dataset in datasets %}
+              <option value='{{dataset.experiment}}'>{{dataset.experiment}}</option>
+            {% endfor %}
+          </select>
+      </div>
+		</div>
+		<div class="col-md-3">
+      <div class="form-group">
+        <label for="exampleFormControlSelect2"><h4>> Cell type</h4></label>
+        <select class="form-control" id="exampleFormControlSelect2">
+          <option value="emptylabel2" class="emptylabel1">--------Select--------</option>
+          {% for dataset in datasets %}
+            <option value={{dataset.experiment}}+{{dataset.cell}} class={{dataset.experiment}}>{{dataset.cell}}</option>
+          {% endfor %}
+        </select>
+      </div>
+		</div>
+		<div class="col-md-3">
+      <div class="form-group">
+        <label for="exampleFormControlSelect3"><h4>> Sample</h4></label>
+        <select class="form-control" id="exampleFormControlSelect3">
+          <option class="emptylabel2">--------Select--------</option>
+          {% for dataset in datasets %}
+            <option class= {{dataset.experiment}}+{{dataset.cell}} value={{dataset.cdbid}} >{{dataset}}</option>
+          {% endfor %}
+        </select>
+      </div>
+		</div>
+		<div class="col-md-3 text-center">
+      <button type="button" class="btn btn-lg btn-warning" id='add-visualize-data'>
+        <a href="" style='color:black' id='selected_link'>Add</a>
+			</button>
+		</div>
+	</div>
+  <h4 id='current_selected_data'>
+    <a class="badge badge-danger" style='color:white' href="/visualize"><span class='fa fa-close'></span> Clear data</a>
+    {% for selected_object in selected_objects %}
+      <a class="badge badge-info" style='color:white'>{{selected_object.experiment}}_{{selected_object}}</a>
+    {% endfor %}
+  </h4>
+  <hr style="width: 100%; height: 1px; border: none; background-color: #282828">
+</div>
+
+<script>
+  $(function(){
+   $("#exampleFormControlSelect3").chained($("#exampleFormControlSelect2").chained("#exampleFormControlSelect1"));
+  });
+</script>
+
+<script type="text/javascript">
+  //为add按钮添加链接
+  var current_url = window.location.href
+  var split_url = current_url.split('/').slice(-2)
+
+  $("#exampleFormControlSelect3").change(function(){
+    var selected_id = $('#exampleFormControlSelect3').val();
+    if (split_url[0] == 'visualize')
+    {
+      $("#selected_link").attr("href", current_url+selected_id);
+    }
+    else
+    {
+      $("#selected_link").attr("href", current_url.substr(0, current_url.length - 1)+"+"+selected_id);
+    }
+  });
+  //增加提示
+  //$("#selected_link").click(function(){
+  //  alert("Data added")})
+</script>
+
+<script>
+  //消除下拉列表重复项
+  var map = {};
+   $('.form-group option').each(function () {
+      if (map[this.value]) {
+          $(this).remove()
+      };
+      map[this.value] = true;
+  });
+  //排序
+  var options = $("#exampleFormControlSelect2 option");                    // Collect options
+  options.detach().sort(function(a,b) {               // Detach from select, then Sort
+    var at = $(a).text();
+    var bt = $(b).text();
+    return (at > bt)?1:((at < bt)?-1:0);            // Tell the sort function how to order
+  });
+  options.appendTo("#exampleFormControlSelect2");                          // Re-attach to select
+
+  //排序
+  var options = $("#exampleFormControlSelect3 option");
+  options.detach().sort(function(a,b) {
+    var at = $(a).text();
+    var bt = $(b).text();
+    return (at > bt)?1:((at < bt)?-1:0);
+  });
+  options.appendTo("#exampleFormControlSelect3");
+</script>
+
+<div class="container">
+  <div id="embed">test</div>
+</div>
+
+<script type="text/javascript">
+const container = document.getElementById('embed');
+const contents = {
+    "genomeName": "hg38",
+    "displayRegion": "chr21:33659092-36159092",
+    "trackLegendWidth": 120,
+    "isShowingNavigator": true,
+    "tracks": [
+    {
+        "type": "geneannotation",
+        "name": "refGene",
+        "genome": "hg38"
+    },
+    {
+        "type": "ruler",
+        "name": "Ruler"
+    },
+    ],
+    "metadataTerms": ["Assay"],
+    "regionSets": [],
+    "regionSetViewIndex": -1,
+};
+
+console.log({{ epgg_tracks | safe  }})
+
+
+contents["tracks"] = contents["tracks"].concat({{ epgg_tracks | safe  }});
+console.log(contents["tracks"])
+
+renderBrowserInElement(contents, container);
+
+//var loophover = document.getElementsByClassName("Tooltip")[0];
+//loophover.innerHTML = loophover.innerHTML.replace(/Object/g,'CCCC');
+//document.body.innerHTML = document.body.innerHTML.replace(/objectObject/g, 'dataaaaa');
+
+// $("#embed").mouseover(function() {
+//  var hoverelements = document.getElementsByTagName("svg");
+
+//  for (var i = 0; i < hoverelements.length; i++) {
+//     var str = hoverelements[i].innerHTML;
+//     var text = str.replace("ArcDisplay-emphasize-on-hover", "otherclass");
+//     hoverelements[i].innerHTML = text;
+//  };
+// });
+
+// p.push("<script type="text/javascript">var hoverelements = document.getElementsByClassName("Tooltip"); for (var i = 0; i < hoverelements.length; i++) { var str = hoverelements[i].innerHTML; var text = str.replace("Object", "CCCC");hoverelements[i].innerHTML = text;}
+</script>
+
+</body>
+
+<footer>
+  <div class="container">
+    <hr style="width: 100%; height: 1px; border: none; background-color: #282828; margin-top:50px;margin-bottom:50px;">
+    <div class="row">
+      <div class="col-md-12 text-center copyright_footer">
+          <h6 class="copyright-text">Copyright &copy; 2021 All Rights Reserved by
+           <a href="http://150.230.195.8">Jiankang Wang</a>.
+         </h6>
+      </div>
+    </div>
+  </div>
+</footer>

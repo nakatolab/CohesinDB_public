@@ -1,0 +1,284 @@
+{% extends "demoSite/base.html" %}
+
+{% block title %} CohesinDB_Data {% endblock %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/data_browser.css' %}">
+<script src="{% static 'js/data_browser.js' %}"></script>
+<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+
+<!--Export csv-->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+<!--Export csv-->
+
+<div class="container-fluid">
+  <h2><i class="fa fa-server"></i>  Explore cohesin datasets</h2>
+
+  {% for filter in currentfilter.values %}
+    {% if filter != '0' %}
+      <span class="label label-success" style="font-size:15px;">{{filter}}</span>
+    {% endif %}
+  {% endfor %}
+  <a href="/data/">
+    <span class="label label-warning" style="font-size:15px;"><i class="fa fa-window-close"> Clear filters</i></span>
+  </a>
+  <hr style="width: 100%; height: 1px; border: none; background-color: #282828">
+</div>
+
+
+<div class="navbar navbar-default visible-xs">
+  <div class="container-fluid">
+    <button class="btn btn-default navbar-btn" data-toggle="collapse" data-target="#filter-sidebar">
+      <i class="fa fa-tasks"></i> Toggle Sidebar
+    </button>
+  </div>
+</div>
+
+<div class="container-fluid">
+
+  <div class="row">
+    <!-- filter sidebar -->
+    <div id="filter-sidebar" class="col-xs-6 col-sm-3 visible-sm visible-md visible-lg collapse sliding-sidebar">
+      <div>
+        <h4 data-toggle="collapse" data-target="#group-1">
+          <i class="fa fa-fw fa-caret-down parent-expanded"></i>
+          <i class="fa fa-fw fa-caret-right parent-collapsed"></i>
+          Modules
+        </h4>
+        <div id="group-1" class="list-group collapse in">
+
+          {% for name, number in modules %}
+            {% if name == currentfilter.modules %}
+              <a class="active list-group-item" href="/data/0+{{ currentfilter.experiment }}+{{ currentfilter.subunit }}+{{ currentfilter.disease }}+{{currentfilter.tissue}}+{{currentfilter.biosample}}/">
+                <span class="badge">{{ number }}</span> {{name}}
+              </a>
+            {% else %}
+              <a class="list-group-item" href="/data/{{ name }}+{{ currentfilter.experiment }}+{{ currentfilter.subunit }}+{{ currentfilter.disease }}+{{currentfilter.tissue}}+{{currentfilter.biosample}}/">
+                <span class="badge">{{ number }}</span> {{name}}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div>
+        <h4 data-toggle="collapse" data-target="#group-2">
+          <i class="fa fa-fw fa-caret-down parent-expanded"></i>
+          <i class="fa fa-fw fa-caret-right parent-collapsed"></i>
+          Assay
+        </h4>
+        <div id="group-2" class="list-group collapse in">
+          {% for name, number in experiments %}
+            {% if name == currentfilter.experiment %}
+              <a class="active list-group-item" href= '/data/{{ currentfilter.modules }}+0+{{ currentfilter.subunit }}+{{ currentfilter.disease }}+{{currentfilter.tissue}}+{{currentfilter.biosample}}/'>
+                <span class="badge">{{ number }}</span> {{ name }}
+              </a>
+            {% else %}
+              <a class="list-group-item" href= '/data/{{ currentfilter.modules }}+{{ name }}+{{ currentfilter.subunit }}+{{ currentfilter.disease }}+{{currentfilter.tissue}}+{{currentfilter.biosample}}/'>
+                <span class="badge">{{ number }}</span> {{ name }}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div>
+        <h4 data-toggle="collapse" data-target="#group-3">
+          <i class="fa fa-fw fa-caret-down parent-expanded"></i>
+          <i class="fa fa-fw fa-caret-right parent-collapsed"></i>
+          Cohesin Subunit
+        </h4>
+        <div id="group-3" class="list-group collapse in">
+          {% for name, number in subunits %}
+            {% if name == currentfilter.subunit %}
+              <a class="active list-group-item" href="/data/{{ currentfilter.modules }}+{{ currentfilter.experiment }}+0+{{ currentfilter.disease }}+{{currentfilter.tissue}}+{{currentfilter.biosample}}">
+                <span class="badge">{{ number }}</span> {{ name }}
+              </a>
+            {% else %}
+              <a class="list-group-item" href="/data/{{ currentfilter.modules }}+{{ currentfilter.experiment }}+{{ name }}+{{ currentfilter.disease }}+{{currentfilter.tissue}}+{{currentfilter.biosample}}">
+                <span class="badge">{{ number }}</span> {{ name }}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div>
+        <h4 data-toggle="collapse" data-target="#group-4">
+          <i class="fa fa-fw fa-caret-down parent-expanded"></i>
+          <i class="fa fa-fw fa-caret-right parent-collapsed"></i>
+          Disease
+        </h4>
+        <div id="group-4" class="list-group collapse in">
+          {% for name, number in diseases %}
+            {% if name == currentfilter.disease %}
+              <a class="active list-group-item" href="/data/{{ currentfilter.modules }}+{{ currentfilter.experiment }}+{{ currentfilter.subunit }}+0+{{currentfilter.tissue}}+{{currentfilter.biosample}}">
+                <span class="badge"> {{number}} </span> {{name}}
+              </a>
+            {% else %}
+              <a class="list-group-item" href="/data/{{ currentfilter.modules }}+{{ currentfilter.experiment }}+{{ currentfilter.subunit }}+{{name}}+{{currentfilter.tissue}}+{{currentfilter.biosample}}">
+                <span class="badge"> {{number}} </span> {{name}}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div>
+        <h4 data-toggle="collapse" data-target="#group-5">
+          <i class="fa fa-fw fa-caret-down parent-expanded"></i>
+          <i class="fa fa-fw fa-caret-right parent-collapsed"></i>
+          Tissues
+        </h4>
+        <div id="group-5" class="list-group collapse">
+          {% for name, number in tissues %}
+            {% if name == currentfilter.tissue %}
+              <a class="active list-group-item" href="/data/{{ currentfilter.modules }}+{{ currentfilter.experiment }}+{{ currentfilter.subunit }}+{{ currentfilter.disease }}+0+{{currentfilter.biosample}}">
+                <span class="badge"> {{number}} </span> {{name}}
+              </a>
+            {% else %}
+              <a class="list-group-item" href="/data/{{ currentfilter.modules }}+{{ currentfilter.experiment }}+{{ currentfilter.subunit }}+{{ currentfilter.disease }}+{{name}}+{{currentfilter.biosample}}">
+                <span class="badge"> {{number}} </span> {{name}}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+      <div>
+        <h4 data-toggle="collapse" data-target="#group-6">
+          <i class="fa fa-fw fa-caret-down parent-expanded"></i>
+          <i class="fa fa-fw fa-caret-right parent-collapsed"></i>
+          Biosamples
+        </h4>
+        <div id="group-6" class="list-group collapse">
+          {% for name, number in biosamples %}
+            {% if name == currentfilter.biosample %}
+              <a class="active list-group-item" href="/data/{{ currentfilter.modules }}+{{ currentfilter.experiment }}+{{ currentfilter.subunit }}+{{ currentfilter.disease }}+{{ currentfilter.tissue}}+0">
+                <span class="badge"> {{number}} </span> {{name}}
+              </a>
+            {% else %}
+              <a class="list-group-item" href="/data/{{ currentfilter.modules }}+{{ currentfilter.experiment }}+{{ currentfilter.subunit }}+{{ currentfilter.disease }}+{{currentfilter.tissue}}+{{name}}">
+                <span class="badge"> {{number}} </span> {{name}}
+              </a>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+
+    <!-- table container -->
+    <div class="column col-sm-9">
+
+      <table class="table table-striped table-hover table-responsive" id="main_data_table">
+        <thead>
+          <tr>
+            <th class="valign-middle">ID</th>
+            <th class="valign-middle">Assay</th>
+            <th class="valign-middle">Related subunit</th>
+            <th class="valign-middle">Celltype</th>
+            <th class="valign-middle">Tissue</th>
+            <th class="valign-middle">Disease</th>
+            <th class="valign-middle">Treatment1</th>
+            <th class="valign-middle">Treatment2</th>
+<!--
+            <th class="valign-middle">Antibody</th>
+            <th class="valign-middle">Restrict enzyme</th>
+            <th class="valign-middle">DEG group</th>
+-->
+            <th class="valign-middle">Study</th>
+            <th class="valign-middle">Download1</th>
+            <th class="valign-middle">Download2</th>
+          </tr>
+        </thead>
+        <tbody>
+					<div class="datasets_paginator">
+					{% for dataset in datasets %}
+	          <tr>
+              <td class="valign-middle" data-label="Title">
+	              <a href="/data/eachdata/{{ dataset.cdbid }}/">{{ dataset.cdbid }}</a>
+	            </td>
+	            <td class="valign-middle" data-label="Artist">
+	              {{ dataset.experiment }}
+	            </td>
+              <td class="valign-middle" data-label="Artist">
+	              {{ dataset.subunit }}
+	            </td>
+	            <td class="valign-middle" data-label="Price">
+	              <a href="/data/celltype/{{ dataset.cell }}/">{{ dataset.cell }}</a>
+	            </td>
+              <td class="valign-middle" data-label="Tissue">
+	              {{ dataset.tissue }}
+	            </td>
+              <td class="valign-middle" data-label="Tissue">
+	              {{ dataset.disease }}
+	            </td>
+              <td class="valign-middle" data-label="treat1">
+	              {{ dataset.treat1 }}
+	            </td>
+              <td class="valign-middle" data-label="treat2">
+	              {{ dataset.treat2 }}
+	            </td>
+<!--
+              <td class="valign-middle" data-label="treat2">
+	              {{ dataset.antibody }}
+	            </td>
+              <td class="valign-middle" data-label="treat2">
+	              {{ dataset.restriction }}
+	            </td>
+              <td class="valign-middle" data-label="treat2">
+	              {{ dataset.compareID }}
+	            </td>
+-->
+              <td class="valign-middle" data-label="Title">
+	              <a href="{{ dataset.link }}">{{ dataset.access }}</a>
+	            </td>
+	            <td class="valign-middle align-right">
+	              <a class="btn btn-default" href="{% url 'demoSite:datadownload1' dataset.id %}" %}" data-toggle="tooltip" title="Processed file 1" data-placement="bottom" data-trigger="hover">
+	                <i class="fa fa-download"></i>
+	              </a>
+	            </td>
+              <td class="valign-middle align-right">
+	              <a class="btn btn-default" href="{% url 'demoSite:datadownload2' dataset.id %}" %}" data-toggle="tooltip" title="Processed file 2" data-placement="bottom" data-trigger="hover">
+	                <i class="fa fa-download"></i>
+	              </a>
+	            </td>
+	          </tr>
+					{% endfor %}
+				</div>
+        </tbody>
+      </table>
+
+    </div>
+
+  </div>
+</div>
+
+<script >
+
+  $(function () { $("[data-toggle='tooltip']").tooltip(); });
+
+	$(document).ready( function () {
+    $('#main_data_table').DataTable(
+    {
+      dom: 'Bfrtip',
+			buttons:['copy','csv','excel'],
+      "lengthMenu": [ 20, 10, 50, 100 ],
+      scrollX: true,
+      "orderClasses": false,
+    });
+	} );
+</script>
+
+
+
+{% endblock %}

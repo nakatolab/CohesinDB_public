@@ -1,0 +1,398 @@
+{% extends "demoSite/base.html" %}
+
+{% block title %} CohesinDB_Browse {% endblock %}
+
+{% block content %}
+{% load static %}
+<script type="application/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=ResizeObserver"></script>
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!--<script src="https://cdn.datatables.net/plug-ins/1.10.25/dataRender/ellipsis.js"></script>-->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{% static 'js/tableshort.js' %}"></script>
+
+<!--Export csv-->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+<!--Export csv-->
+
+<div class="">
+	<div class="row clearfix">
+		<div class="col-md-6 column">
+			<h2><i class="fa fa-search-plus"></i>  Search for interested cohesin sites</h2>
+			<form role="form" action="/browse/">
+				<div class="col-md-6 column">
+					<div class="form-group">
+						 <label for="GenomicRegionInput">Genomic region (*required)</label>
+						 <input type="text" class="form-control" name="region" id="GenomicRegionInput" placeholder="chr21:25000000-27000000" />
+					</div>
+					<div class="form-group">
+						 <label for="GeneInput">Regulated gene</label>
+						 <input type="text" class="form-control" name='gene' id="GeneInput" placeholder="PAK4" />
+					</div>
+					<div class="form-group">
+						 <label for="TFsInput">Cobound TFs</label>
+						 <input type="text" class="form-control" name='tf' id="TFsInput" placeholder="ESR1" />
+					</div>
+					<div class="form-group">
+						<label for="StudyInput">Study</label>
+						<input type="text" class="form-control" name='study' id="StudyInput"  placeholder="GSE86191"/>
+					</div>
+					<div class="form-group">
+						<!--
+						<label for="CellInput">Cell type</label>
+						<input type="text" class="form-control" name='cell' id="CellInput"  placeholder="MCF7"/>
+						-->
+
+						<label for="">Cell type</label>
+						<select class="form-control" name="cell">
+							<option value=''>Not selected</option>
+							{% for eachcelltype in allcelltype %}
+	              <option value='{{eachcelltype}}'>{{eachcelltype}}</option>
+	            {% endfor %}
+						</select>
+					</div>
+				</div>
+
+				<div class="col-md-6 column">
+					<label for="">CTCF</label>
+					<div class="radio" style='margin-bottom:17px;'>
+						<label class="radio-inline"><input type="radio" name="ctcf" id="ctcf_all" value="" checked>All</label>
+						<label class="radio-inline"><input type="radio" name="ctcf" id="ctcf_yes" value="CTCF" > Yes</label>
+						<label class="radio-inline"><input type="radio" name="ctcf" id="ctcf_no" value="non-CTCF">No</label>
+					</div>
+
+					<label for="">Boundary</label>
+					<div class="radio" style='margin-bottom:17px;'>
+						<label class="radio-inline"><input type="radio" name="boundary" id="boundary_all" value="" checked>All</label>
+						<label class="radio-inline"><input type="radio" name="boundary" id="boundary_yes" value="Boundary"> Yes</label>
+						<label class="radio-inline"><input type="radio" name="boundary" id="boundary_no" value="non-Boundary">No</label>
+					</div>
+
+					<label for="">Enhancer</label>
+					<div class="radio" style='margin-bottom:17px;'>
+						<label class="radio-inline"><input type="radio" name="enhancer" id="enhancer_all" value="" checked>All</label>
+						<label class="radio-inline"><input type="radio" name="enhancer" id="enhancer_yes" value="Enhancer"> Yes</label>
+						<label class="radio-inline"><input type="radio" name="enhancer" id="enhancer_no" value="non-Enhancer">No</label>
+					</div>
+
+					<label for="">Hi-C Loop</label>
+					<div class="radio" style='margin-bottom:17px;'>
+						<label class="radio-inline"><input type="radio" name="hicloop" id="loop_all" value="" checked>All</label>
+						<label class="radio-inline"><input type="radio" name="hicloop" id="loop_yes" value="hicloop"> Yes</label>
+						<label class="radio-inline"><input type="radio" name="hicloop" id="loop_no" value="non-hicloop">No</label>
+					</div>
+
+					<label for="">Hub</label>
+					<div class="radio" style='margin-bottom:17px;'>
+						<label class="radio-inline"><input type="radio" name="hub" id="hub_all" value="" checked>All</label>
+						<label class="radio-inline"><input type="radio" name="hub" id="hub_yes" value="Hubs"> Yes</label>
+						<label class="radio-inline"><input type="radio" name="hub" id="hub_no" value="non-Hubs">No</label>
+					</div>
+				</div>
+
+				<button type="submit" class="btn btn-success">Submit</button>
+			</form>
+		</div>
+
+		<div class="col-md-6 column">
+			<h2><i class="fa fa-map-o"></i>  Overview of the search results</h2>
+			<p class="lead"> Filtered: <span style="font-weight:bold; color:purple;">{{ peakcount }}</span> cohesin sites that regulate
+				<span style="font-weight:bold; color:purple;">{{peakTargetGeneCount}}</span> genes</p>
+			<div class="row clearfix">
+				<div class="col-sm-4 column style="margin:0px"">
+					<div style="position: absolute; z-index: 1; left: 0%; top: 43%; width:100%; height:14%; text-align:center; ">
+			 			<p style="font-weight:bold;">Location</p>
+	 				</div>
+					<canvas id="overview-chart1" '></canvas>
+				</div>
+				<div class="col-sm-4 column">
+					<div style="position: absolute; z-index: 1; left: 0%; top: 43%; width:100%; height:14%; text-align:center; ">
+			 			<p style="font-weight:bold;">Subunit</p>
+	 				</div>
+					<canvas id="overview-chart2"></canvas>
+				</div>
+				<div class="col-sm-4 column">
+					<div style="position: absolute; z-index: 1; left: 0%; top: 43%; width:100%; height:14%; text-align:center; ">
+			 			<p style="font-weight:bold;">Cell specific</p>
+	 				</div>
+					<canvas id="overview-chart3"></canvas>
+				</div>
+			</div>
+			<div class="row clearfix" style="margin-top:20px">
+				<div class="col-sm-4 column">
+					<div style="position: absolute; z-index: 1; left: 0%; top: 43%; width:100%; height:14%; text-align:center; ">
+			 			<p style="font-weight:bold;">Boundary</p>
+	 				</div>
+					<canvas id="overview-chart4"></canvas>
+				</div>
+				<div class="col-sm-4 column">
+					<div style="position: absolute; z-index: 1; left: 0%; top: 43%; width:100%; height:14%; text-align:center; ">
+			 			<p style="font-weight:bold;">CTCF</p>
+	 				</div>
+					<canvas id="overview-chart5"></canvas>
+				</div>
+				<div class="col-sm-4 column">
+					<div style="position: absolute; z-index: 1; left: 0%; top: 43%; width:100%; height:14%; text-align:center; ">
+			 			<p style="font-weight:bold;">Enhancer</p>
+	 				</div>
+					<canvas id="overview-chart6"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<hr style="width: 100%; height: 1px; border: none; background-color: #282828">
+
+<div class="col-sm-12">
+	<h2 style="color:blue;"><i class="fa fa-linode"></i>  Cohesin binding sites</h2>
+	<h4 class='bg-success'> {{ filterconditions }} </h4>
+  <table id="peak_table" class="display">
+      <thead>
+          <tr>
+							<th>ID</th>
+              <th>Locus</th>
+							<th>Study</th>
+							<th>CellType</th>
+
+							<th>Specificity</th>
+							<th>Subunit</th>
+						  <th>CTCF</th>
+							<th>Location</th>
+
+							<th>Boundary</th>
+							<th>Chromatin Hub</th>
+						  <th>Hi-C loop</th>
+							<th>Hi-ChIP loop</th>
+							<th>ChIA-PET loop</th>
+
+							<th>Enhancer</th>
+							<th>Cobind TFs</th>
+							<th>TargetGene</th>
+
+							<th>SNPs</th>
+							<th># of coding somatic mutation</th>
+							<th># of noncoding somatic mutation</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for onepeak in allpeak %}
+          <tr>
+							<td><a href="/browsepeak/eachpeak/{{onepeak.cdbid}}/">{{ onepeak.cdbid }}</a></td>
+              <td>{{ onepeak.slug }}</td>
+							<td>{{ onepeak.datasource }}</td>
+							<td>{{ onepeak.celltype }}</td>
+
+							<td>{{ onepeak.cellspecificity | floatformat:'4' }}</td>
+							<td>{{ onepeak.subunit }}</td>
+							<td>{{ onepeak.CTCFdependent }}</td>
+							<td>{{ onepeak.location }}</td>
+
+							<td>{{ onepeak.boundary }}</td>
+							<td>{{ onepeak.hubs }}</td>
+							<td>{{ onepeak.hicloop }}</td>
+							<td>{{ onepeak.hicchiploop }}</td>
+							<td>{{ onepeak.chialoop }}</td>
+
+
+							<td>{{ onepeak.enhancer }}</td>
+							<td>{{ onepeak.cobind }}</td>
+							<td>{{ onepeak.targetgene }}</td>
+
+							<td>{{ onepeak.snp }}</td>
+							<td>{{ onepeak.codingmut }}</td>
+							<td>{{ onepeak.noncodingmut }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+</div>
+
+<script>
+
+	//表格
+  $(document).ready(
+    function () {
+      var table = $('#peak_table').DataTable({
+				dom: 'Bfrtip',
+				buttons:['copy','csv','excel'],
+				"lengthMenu": [ 10, 20, 50, 100 ],
+				scrollX: true,
+				columnDefs:[{
+					targets:2,
+					render: $.fn.dataTable.render.ellipsis(12,)
+				},
+				{
+					targets:3,
+					render: $.fn.dataTable.render.ellipsis(12,)
+				},
+				{
+					targets:5,
+					render: $.fn.dataTable.render.ellipsis(12,)
+				},
+				{
+					targets:14,
+					render: $.fn.dataTable.render.ellipsis(12,)
+				},
+				{
+					targets:15,
+					render: $.fn.dataTable.render.ellipsis(12,)
+				},
+				{
+					targets:16,
+					render: $.fn.dataTable.render.ellipsis(12,)
+				},],
+			});
+
+			$('[data-toggle="tooltip"]').tooltip();
+      //$('#gene_table').DataTable();
+    }
+  );
+
+	//overview chart
+	var config_location = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ peaklocations.values}},
+				backgroundColor: ['#0a9396','#bb3e03', '#005f73', '#001219', '#9b2226', '#94d2bd', '#ae2012', '#ee9b00', '#ca6702', '#e9d8a6'],
+				hoverOffset: 12,
+			}],
+			labels: {{ peaklocations.index |safe }}
+		},
+		options: {
+			responsive: true,
+			plugins:{
+				legend: {display: false,},
+				title: { display: false,}
+			}
+		},
+	};
+
+	var config_subunit = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ peaksubunits.values}},
+				backgroundColor: ['#0a9396','#bb3e03', '#005f73', '#001219', '#9b2226', '#94d2bd', '#ae2012', '#ee9b00', '#ca6702', '#e9d8a6'],
+				hoverOffset: 12,
+			}],
+			labels: {{ peaksubunits.index |safe }}
+		},
+		options: {
+			responsive: true,
+			plugins:{
+				legend: {display: false,},
+				title: {display: false,},
+			}
+		},
+	};
+
+	var config_cell = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ peakcells.values}},
+				backgroundColor: ['#0a9396','#bb3e03', '#005f73', '#001219', '#9b2226', '#94d2bd', '#ae2012', '#ee9b00', '#ca6702', '#e9d8a6'],
+				hoverOffset: 12,
+			}],
+			labels: {{ peakcells.index |safe }}
+		},
+		options: {
+			responsive: true,
+			plugins:{
+				legend: {display: false,},
+				title: {display: false,},
+			}
+		},
+	};
+
+	var config_boundary = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ peakboundaries.values}},
+				backgroundColor: ['#0a9396','#bb3e03', '#005f73', '#001219', '#9b2226', '#94d2bd', '#ae2012', '#ee9b00', '#ca6702', '#e9d8a6'],
+				hoverOffset: 12,
+			}],
+			labels: {{ peakboundaries.index |safe }}
+		},
+		options: {
+			responsive: true,
+			plugins:{
+				legend: {display: false,},
+				title: {display: false,},
+			}
+		},
+	};
+
+	var config_ctcf = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ peakctcf.values}},
+				backgroundColor: ['#0a9396','#bb3e03', '#005f73', '#001219', '#9b2226', '#94d2bd', '#ae2012', '#ee9b00', '#ca6702', '#e9d8a6'],
+				hoverOffset: 12,
+			}],
+			labels: {{ peakctcf.index |safe }}
+		},
+		options: {
+			responsive: true,
+			plugins:{
+				legend: {display: false,},
+				title: {display: false,},
+			}
+		},
+	};
+
+	var config_enhancer = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ peakenhancers.values}},
+				backgroundColor: [ '#0a9396','#bb3e03', '#005f73', '#001219', '#9b2226', '#94d2bd', '#ae2012', '#ee9b00', '#ca6702', '#e9d8a6'],
+				hoverOffset: 12,
+			}],
+			labels: {{ peakenhancers.index |safe }}
+		},
+		options: {
+			responsive: true,
+			plugins:{
+				legend: {display: false,},
+				title: {display: false,},
+			}
+		},
+	};
+
+	window.onload = function() {
+		var ctx_location = document.getElementById('overview-chart1').getContext('2d');
+		new Chart(ctx_location, config_location);
+		// ctx_study.fillText("Some Text", 25, 50);
+
+		var ctx_subunit = document.getElementById('overview-chart2').getContext('2d');
+		window.myPie = new Chart(ctx_subunit, config_subunit);
+
+		var ctx_cell = document.getElementById('overview-chart3').getContext('2d');
+		window.myPie = new Chart(ctx_cell, config_cell);
+
+		var ctx_boundary = document.getElementById('overview-chart4').getContext('2d');
+		window.myPie = new Chart(ctx_boundary, config_boundary);
+
+		var ctx_ctcf = document.getElementById('overview-chart5').getContext('2d');
+		window.myPie = new Chart(ctx_ctcf, config_ctcf);
+
+		var ctx_enhancer = document.getElementById('overview-chart6').getContext('2d');
+		window.myPie = new Chart(ctx_enhancer, config_enhancer);
+	};
+</script>
+
+{% endblock %}

@@ -1,0 +1,101 @@
+LINE 231 : 2022-04-13 11:12:19,600 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:12:20,091 [DEBUG   ] http://maayanlab.cloud:80 "GET /Enrichr/datasetStatistics HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:12:20,094 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:12:20,874 [DEBUG   ] https://maayanlab.cloud:443 "GET /Enrichr/datasetStatistics HTTP/1.1" 200 None
+LINE 385 : 2022-04-13 11:12:21,042 [INFO    ] Connecting to Enrichr Server to get latest library names
+LINE 404 : 2022-04-13 11:12:21,043 [DEBUG   ] Start Enrichr using library: KEGG_2021_Human
+LINE 405 : 2022-04-13 11:12:21,043 [INFO    ] Analysis name: , Enrichr Library: KEGG_2021_Human
+LINE 231 : 2022-04-13 11:12:21,045 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:12:21,376 [DEBUG   ] http://maayanlab.cloud:80 "POST /Enrichr/addList HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:12:21,378 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:12:22,081 [DEBUG   ] https://maayanlab.cloud:443 "POST /Enrichr/addList HTTP/1.1" 200 74
+LINE 231 : 2022-04-13 11:12:23,086 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:12:23,423 [DEBUG   ] http://maayanlab.cloud:80 "GET /Enrichr/export?userListId=47253208&filename=KEGG_2021_Human..reports&backgroundType=KEGG_2021_Human HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:12:23,426 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:12:24,114 [DEBUG   ] https://maayanlab.cloud:443 "GET /Enrichr/export?userListId=47253208&filename=KEGG_2021_Human..reports&backgroundType=KEGG_2021_Human HTTP/1.1" 200 1443
+LINE 413 : 2022-04-13 11:12:24,120 [INFO    ] Save file of enrichment results: Job Id:76e1a9cce5fb1e2adf48a6a73ae1101d
+LINE 422 : 2022-04-13 11:12:24,124 [WARNING ] Warning: No enrich terms using library KEGG_2021_Human when cutoff = 0.05
+LINE 423 : 2022-04-13 11:12:24,124 [INFO    ] Done.
+
+LINE 228 : 2022-04-13 11:12:24,159 [WARNING ] Not Found: /data/cohesin-degs+groseq+rad21+cdls+Epithelial +primary
+LINE 231 : 2022-04-13 11:12:24,902 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:12:25,234 [DEBUG   ] http://maayanlab.cloud:80 "GET /Enrichr/datasetStatistics HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:12:25,236 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:12:25,912 [DEBUG   ] https://maayanlab.cloud:443 "GET /Enrichr/datasetStatistics HTTP/1.1" 200 None
+LINE 385 : 2022-04-13 11:12:26,077 [INFO    ] Connecting to Enrichr Server to get latest library names
+LINE 404 : 2022-04-13 11:12:26,077 [DEBUG   ] Start Enrichr using library: KEGG_2021_Human
+LINE 405 : 2022-04-13 11:12:26,078 [INFO    ] Analysis name: , Enrichr Library: KEGG_2021_Human
+LINE 231 : 2022-04-13 11:12:26,079 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:12:26,412 [DEBUG   ] http://maayanlab.cloud:80 "POST /Enrichr/addList HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:12:26,414 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:12:27,108 [DEBUG   ] https://maayanlab.cloud:443 "POST /Enrichr/addList HTTP/1.1" 200 74
+LINE 231 : 2022-04-13 11:12:28,113 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:12:28,449 [DEBUG   ] http://maayanlab.cloud:80 "GET /Enrichr/export?userListId=47253214&filename=KEGG_2021_Human..reports&backgroundType=KEGG_2021_Human HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:12:28,452 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:12:39,576 [DEBUG   ] https://maayanlab.cloud:443 "GET /Enrichr/export?userListId=47253214&filename=KEGG_2021_Human..reports&backgroundType=KEGG_2021_Human HTTP/1.1" 200 1443
+LINE 413 : 2022-04-13 11:12:39,583 [INFO    ] Save file of enrichment results: Job Id:3ab4cf7ba1404ae41243946d8b2cb6bc
+LINE 422 : 2022-04-13 11:12:39,586 [WARNING ] Warning: No enrich terms using library KEGG_2021_Human when cutoff = 0.05
+LINE 423 : 2022-04-13 11:12:39,586 [INFO    ] Done.
+
+LINE 231 : 2022-04-13 11:12:40,589 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:12:40,928 [DEBUG   ] http://maayanlab.cloud:80 "GET /Enrichr/datasetStatistics HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:12:40,930 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:12:41,604 [DEBUG   ] https://maayanlab.cloud:443 "GET /Enrichr/datasetStatistics HTTP/1.1" 200 None
+LINE 385 : 2022-04-13 11:12:41,769 [INFO    ] Connecting to Enrichr Server to get latest library names
+LINE 404 : 2022-04-13 11:12:41,770 [DEBUG   ] Start Enrichr using library: KEGG_2021_Human
+LINE 405 : 2022-04-13 11:12:41,770 [INFO    ] Analysis name: , Enrichr Library: KEGG_2021_Human
+LINE 231 : 2022-04-13 11:12:41,772 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:12:42,108 [DEBUG   ] http://maayanlab.cloud:80 "POST /Enrichr/addList HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:12:42,110 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:12:42,798 [DEBUG   ] https://maayanlab.cloud:443 "POST /Enrichr/addList HTTP/1.1" 200 74
+LINE 231 : 2022-04-13 11:12:43,803 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:12:44,139 [DEBUG   ] http://maayanlab.cloud:80 "GET /Enrichr/export?userListId=47253222&filename=KEGG_2021_Human..reports&backgroundType=KEGG_2021_Human HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:12:44,142 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:12:44,877 [DEBUG   ] https://maayanlab.cloud:443 "GET /Enrichr/export?userListId=47253222&filename=KEGG_2021_Human..reports&backgroundType=KEGG_2021_Human HTTP/1.1" 200 1443
+LINE 413 : 2022-04-13 11:12:44,883 [INFO    ] Save file of enrichment results: Job Id:147a4be93df3d1b6e73f72daeb642a69
+LINE 422 : 2022-04-13 11:12:44,886 [WARNING ] Warning: No enrich terms using library KEGG_2021_Human when cutoff = 0.05
+LINE 423 : 2022-04-13 11:12:44,887 [INFO    ] Done.
+
+LINE 231 : 2022-04-13 11:13:47,889 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:13:48,221 [DEBUG   ] http://maayanlab.cloud:80 "GET /Enrichr/datasetStatistics HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:13:48,223 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:13:48,895 [DEBUG   ] https://maayanlab.cloud:443 "GET /Enrichr/datasetStatistics HTTP/1.1" 200 None
+LINE 385 : 2022-04-13 11:13:49,059 [INFO    ] Connecting to Enrichr Server to get latest library names
+LINE 404 : 2022-04-13 11:13:49,060 [DEBUG   ] Start Enrichr using library: KEGG_2021_Human
+LINE 405 : 2022-04-13 11:13:49,060 [INFO    ] Analysis name: , Enrichr Library: KEGG_2021_Human
+LINE 231 : 2022-04-13 11:13:49,062 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:13:49,393 [DEBUG   ] http://maayanlab.cloud:80 "POST /Enrichr/addList HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:13:49,395 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:13:50,105 [DEBUG   ] https://maayanlab.cloud:443 "POST /Enrichr/addList HTTP/1.1" 200 74
+LINE 231 : 2022-04-13 11:13:51,111 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:13:51,440 [DEBUG   ] http://maayanlab.cloud:80 "GET /Enrichr/export?userListId=47253278&filename=KEGG_2021_Human..reports&backgroundType=KEGG_2021_Human HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:13:51,442 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:13:52,125 [DEBUG   ] https://maayanlab.cloud:443 "GET /Enrichr/export?userListId=47253278&filename=KEGG_2021_Human..reports&backgroundType=KEGG_2021_Human HTTP/1.1" 200 1443
+LINE 413 : 2022-04-13 11:13:52,132 [INFO    ] Save file of enrichment results: Job Id:ee559a90d9a6c2617b325598084c167c
+LINE 422 : 2022-04-13 11:13:52,135 [WARNING ] Warning: No enrich terms using library KEGG_2021_Human when cutoff = 0.05
+LINE 423 : 2022-04-13 11:13:52,135 [INFO    ] Done.
+
+LINE 228 : 2022-04-13 11:14:06,289 [WARNING ] Not Found: /robots.txt
+LINE 231 : 2022-04-13 11:14:39,681 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:14:40,015 [DEBUG   ] http://maayanlab.cloud:80 "GET /Enrichr/datasetStatistics HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:14:40,017 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:14:40,702 [DEBUG   ] https://maayanlab.cloud:443 "GET /Enrichr/datasetStatistics HTTP/1.1" 200 None
+LINE 385 : 2022-04-13 11:14:40,869 [INFO    ] Connecting to Enrichr Server to get latest library names
+LINE 404 : 2022-04-13 11:14:40,870 [DEBUG   ] Start Enrichr using library: KEGG_2021_Human
+LINE 405 : 2022-04-13 11:14:40,870 [INFO    ] Analysis name: , Enrichr Library: KEGG_2021_Human
+LINE 231 : 2022-04-13 11:14:40,872 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:14:41,204 [DEBUG   ] http://maayanlab.cloud:80 "POST /Enrichr/addList HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:14:41,206 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:14:41,891 [DEBUG   ] https://maayanlab.cloud:443 "POST /Enrichr/addList HTTP/1.1" 200 74
+LINE 231 : 2022-04-13 11:14:42,896 [DEBUG   ] Starting new HTTP connection (1): maayanlab.cloud:80
+LINE 461 : 2022-04-13 11:14:43,230 [DEBUG   ] http://maayanlab.cloud:80 "GET /Enrichr/export?userListId=47253344&filename=KEGG_2021_Human..reports&backgroundType=KEGG_2021_Human HTTP/1.1" 308 172
+LINE 975 : 2022-04-13 11:14:43,232 [DEBUG   ] Starting new HTTPS connection (1): maayanlab.cloud:443
+LINE 461 : 2022-04-13 11:14:43,920 [DEBUG   ] https://maayanlab.cloud:443 "GET /Enrichr/export?userListId=47253344&filename=KEGG_2021_Human..reports&backgroundType=KEGG_2021_Human HTTP/1.1" 200 1443
+LINE 413 : 2022-04-13 11:14:43,926 [INFO    ] Save file of enrichment results: Job Id:2d74ec4504a92759b15b44c421722554
+LINE 422 : 2022-04-13 11:14:43,929 [WARNING ] Warning: No enrich terms using library KEGG_2021_Human when cutoff = 0.05
+LINE 423 : 2022-04-13 11:14:43,929 [INFO    ] Done.
+
+LINE 228 : 2022-04-13 11:14:44,418 [WARNING ] Not Found: /favicon.ico
+LINE 228 : 2022-04-13 11:15:13,924 [WARNING ] Not Found: /data/0+microarray+input+cancer+Epithelial +cell-line
+LINE 228 : 2022-04-13 11:17:32,853 [WARNING ] Not Found: /data/cohesin-3dgenome+chiapet+input+sars-cov2+Epithelial +primary
+LINE 228 : 2022-04-13 11:18:20,189 [WARNING ] Not Found: /data/0+chipseq+smc3+normal+Epithelial +cell-line

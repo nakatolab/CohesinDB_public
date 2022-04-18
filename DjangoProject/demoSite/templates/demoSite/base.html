@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+  <!--<script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>-->
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <link rel="stylesheet" href="{% static 'css/demoSite.css' %}">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/6f7a18d381.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div class="container">
+  	<div class="row clearfix">
+  		<div class="col-md-12 column">
+  			<nav class="navbar navbar-default navbar-inverse" role="navigation">
+  				<div class="navbar-header">
+  					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+               <span class="sr-only">Toggle navigation</span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+               <span class="icon-bar"></span>
+             </button>
+             <a class="navbar-brand" href="/">
+                <img src="{% static 'images/cohesindb_icon25_white.png' %}" class="img-rounded" alt="CohesinDB icon">
+             </a>
+  				</div>
+
+  				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+  					<ul class="nav navbar-nav">
+              <li {% if section == "home" %}class="active"{% endif %}>
+  							 <a href="/"><span class="glyphicon glyphicon-leaf"></span>Home</a>
+  						</li>
+
+              <li {% if section == "browse" %}class="dropdown active"{% else %}class="dropdown"{% endif %}>
+  							 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-search"></span>Browse<strong class="caret"></strong></a>
+                 <ul class="dropdown-menu">
+                    <li><a href="{% url 'demoSite:browsepage' %}"><i class="fas fa-atlas"></i> Cohesin binding sites</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{% url 'demoSite:browselooppage' %}"><i class="fas fa-atlas"></i> Cohesin-mediated interactions</a></li>
+                    <li class="divider"></li>
+   					        <li><a href="{% url 'demoSite:browsegenepage' %}"><i class="fas fa-atlas"></i> Cohesin-regulated genes</a></li>
+                 </ul>
+  						</li>
+
+  						<li {% if section == "analyze" %}class="active"{% endif %}>
+  							 <a href="{% url 'demoSite:analyzepage' %}"><span class="glyphicon glyphicon-random"></span>Analyze</a>
+  						</li>
+              <li {% if section == "visualize" %}class="active"{% endif %}>
+  							 <a href="{% url 'demoSite:visualizepage' %}"><span class="glyphicon glyphicon-eye-open"></span>Visualize</a>
+  						</li>
+              <li {% if section == "data" %}class="active"{% endif %}>
+  							 <a href="{% url 'demoSite:datapage' %}"><span class="glyphicon glyphicon-th"></span>Data</a>
+  						</li>
+              <!--<li {% if section == "search" %}class="active"{% endif %}>
+  							 <a href="{% url 'demoSite:searchpage' %}"><span class="glyphicon glyphicon-search"></span> Search</a>
+  						</li>-->
+              <li {% if section == "statistic" %}class="active"{% endif %}>
+  							 <a href="{% url 'demoSite:statisticpage' %}"><span class="glyphicon glyphicon-signal"></span>Statistic</a>
+  						</li>
+              <li {% if section == "download" %}class="active"{% endif %}>
+  							 <a href="{% url 'demoSite:downloadpage' %}"><span class="glyphicon glyphicon-save"></span>Download</a>
+  						</li>
+              <li {% if section == "help" %}class="active"{% endif %}>
+  							 <a href="{% url 'demoSite:helppage' %}"><span class="glyphicon glyphicon-briefcase"></span>Document</a>
+  						</li>
+              
+
+  					</ul>
+
+  					<!--<form class="navbar-form navbar-left" role="search">
+  						<div class="form-group">
+  							<input type="text" class="form-control" />
+  						</div> <button type="submit" class="btn btn-default">Submit</button>
+  					</form>-->
+
+  					<ul class="nav navbar-nav navbar-right">
+  						<li class="dropdown">
+  							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<strong class="caret"></strong></a>
+  							<ul class="dropdown-menu">
+  								<li>
+  									 <a href="https://github.com/wangjk321/CohesinDB">Github</a>
+  								</li>
+  								<li>
+  									 <a href="#">Publication</a>
+  								</li>
+  								<li>
+  									 <a href="http://nakatolab.iqb.u-tokyo.ac.jp/access-e.html">Contact</a>
+  								</li>
+  								<li class="divider">
+  								</li>
+  								<li>
+  									 <a href="http://nakatolab.iqb.u-tokyo.ac.jp/index-e.html">Nakato lab</a>
+  								</li>
+                  <li class="divider">
+  								</li>
+  								<li>
+  									 <a href="/admin/">Admin site</a>
+  								</li>
+  							</ul>
+  						</li>
+  					</ul>
+  				</div>
+
+  			</nav>
+      </div>
+    </div>
+
+      {% block content %}{% endblock %}
+  </div>
+</body>
+
+<footer>
+  <div class="container">
+    <hr style="width: 100%; height: 1px; border: none; background-color: #282828">
+    <div class="row">
+      <div class="col-md-12 text-center copyright_footer">
+          <h4 class="copyright-text">Copyright &copy; 2021 All Rights Reserved by
+           <a href="http://150.230.195.8">Jiankang Wang</a>.
+         </h4>
+      </div>
+    </div>
+  </div>
+</footer>

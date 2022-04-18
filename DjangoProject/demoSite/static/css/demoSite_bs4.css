@@ -1,0 +1,51 @@
+.navbar {
+     padding-top: 1.5px;
+     padding-bottom: 1.5px;
+     margin-bottom: 30px;
+   }
+
+.navbar-nav li a{
+    font-size: 17px ;
+    }
+
+.navbar-brand {
+  font-size: 1.8em ;
+}
+
+.ArcDisplay-emphasize-on-hover {
+   pointer-events:none;
+}
+
+
+/* 缩短显示 */
+.test_truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  padding-right: 20px;
+
+}
+
+.test_truncate .hidemoreicon{
+  display: none;
+}
+
+.test_truncate.test_truncated {
+    white-space: initial;
+    padding-right: 0px;
+}
+
+.test_truncate.test_truncated .showmoreicon{
+  display: none;
+}
+
+.test_truncate.test_truncated .hidemoreicon{
+  display: inline;
+}
+
+.showmoreicon {
+  right: 0;
+  position: absolute;
+}
+/* 缩短显示 */

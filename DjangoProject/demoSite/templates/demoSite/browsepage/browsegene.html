@@ -1,0 +1,253 @@
+{% extends "demoSite/base.html" %}
+
+{% block title %} CohesinDB_Regulated_genes {% endblock %}
+
+{% block content %}
+{% load static %}
+<script type="application/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=ResizeObserver"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script src="{% static 'js/tableshort.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!--Export csv-->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+<!--Export csv-->
+
+<div class="">
+	<div class="row clearfix">
+		<div class="col-md-6 column">
+			<h2><i class="fa fa-filter"></i>  Search for interested genes</h2>
+			<form role="form">
+				<div class="form-group">
+					 <label for="GeneInput">Gene</label>
+					 <input type="text" class="form-control" name='genename' id="GeneInput" placeholder="PAK4" />
+				</div>
+				<div class="form-group">
+					 <label for="GeneIDInput">Ensembel ID</label>
+					 <input class="form-control" name='geneid' id="GeneIDInput" placeholder="ENSG00000156284"/>
+				</div>
+        <div class="form-group">
+					 <label for="GenomicRegionInput">Genomic region of genes</label>
+					 <input type="text" class="form-control" name='region' id="GenomicRegionInput" placeholder="chr21:25000000-27000000" />
+				</div>
+
+				<div class="col-sm-8 column" style="padding-left:0px ">
+					<label for="">Cohesin regulation type</label>
+					<select class="form-control" name="dependent">
+						<option value=''>Not selected</option>
+						<option value='Double-evidenced'>Cohesin-Double evidenced</option>
+						<option value='Loop-evidenced'>Cohesin-interaction evidenced</option>
+						<option value='Deg-evidenced'>Cohesin-DEGs evidenced</option>
+					</select>
+				</div>
+
+				<div class="col-sm-4 column">
+					<button type="submit" class="btn btn-success center-block" style="margin-top:25px ">Search</button>
+				</div>
+			</form>
+		</div>
+
+		<div class="col-md-6 column">
+			<h2><i class="fa fa-map-o"></i>  Overview for the search results</h2>
+			<p class="lead"> Filtered: <span style="font-weight:bold; color:purple;">{{ genecount }}</span> genes regulated by
+				<span style="font-weight:bold; color:purple;">{{peakcount}}</span> cohesin sites</p>
+
+			<div class="row clearfix">
+				<div class="col-sm-4 column">
+					<div style="position: absolute; z-index: 1; left: 0%; top: 43%; width:100%; height:14%; text-align:center; ">
+			 			<p style="font-weight:bold;">Triple</br>Evidence</p>
+	 				</div>
+					<canvas id="overview-chart1"></canvas>
+				</div>
+				<div class="col-sm-4 column">
+					<div style="position: absolute; z-index: 1; left: 0%; top: 43%; width:100%; height:14%; text-align:center; ">
+			 			<p style="font-weight:bold;">All</br>Evidence</p>
+	 				</div>
+					<canvas id="overview-chart2"></canvas>
+				</div>
+				<div class="col-sm-4 column">
+					<div style="position: absolute; z-index: 1; left: 0%; top: 43%; width:100%; height:14%; text-align:center; ">
+			 			<p style="font-weight:bold;">Gene</br>Type</p>
+	 				</div>
+					<canvas id="overview-chart3"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="col-sm-12">
+	<h2 style="color:blue; margin-top:30px;"><i class="fa fa-linode"></i>  Cohesin regulated genes (cohesin-gene pairs)</h2>
+	<h4 class='bg-success'> {{ filterconditions }} </h4>
+  <table id="gene_table" class="display">
+      <thead>
+          <tr>
+              <th>Symbol</th>
+              <th>ID</th>
+              <th>Gene location</th>
+							<th>Strand</th>
+							<th>Genetype</th>
+
+							<th>Double evidenced</th>
+							<th>Double evidenced cohesin</th>
+
+							<th>Cohesin interaction</th>
+							<th>Interaction type</th>
+							<th>Interaction study</th>
+							<th>Interaction subunit</th>
+
+							<th>Cohesin DEGs</th>
+							<th>Number of DEGs studies</th>
+							<th>DEGs studies</th>
+							<th>DEGs subunit</th>
+
+							<th>Cohesin coexpression</th>
+							<th>Coexpression Rho</th>
+							<th>Coexpression FDR</th>
+							<th>Coexpression subunit</th>
+          </tr>
+      </thead>
+      <tbody>
+        {% for onegene in allgene %}
+          <tr>
+              <td><a href="/browsegene/eachgene/{{onegene.cdbid}}/">{{ onegene.geneID }}</a></td>
+              <td>{{ onegene.genesymbol }}</td>
+              <td>{{ onegene.geneposition }}</td>
+							<td>{{ onegene.strand }}</td>
+							<td>{{ onegene.proteincoding }}</td>
+
+							<td>{{ onegene.triplewheter }}</td>
+              <td>{{ onegene.triplecohesin }}</td>
+
+							<td>{{ onegene.loopwhether }}</td>
+							<td>{{ onegene.looptype }}</td>
+							<td>{{ onegene.loopstudy }}</td>
+							<td>{{ onegene.loopsubunit }}</td>
+
+							<td>{{ onegene.degwhether }}</td>
+							<td>{{ onegene.degnumberstudy }}</td>
+							<td>{{ onegene.degstudy }}</td>
+							<td>{{ onegene.degsubunit }}</td>
+
+							<td>{{ onegene.correlationwhether }}</td>
+							<td>{{ onegene.correlationRho | floatformat:'6' }}</td>
+							<td>{{ onegene.correlationFDR | floatformat:'6' }}</td>
+							<td>{{ onegene.correlationsubunit }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+</div>
+
+<script>
+	console.log("updata3")
+
+	$(document).ready( function () {
+    $('#gene_table').DataTable({
+			dom: 'Bfrtip',
+			buttons:['copy','csv','excel'],
+      "lengthMenu": [ 20, 10, 50, 100 ],
+			scrollX: true,
+			columnDefs:[{
+				targets:13,
+				render: $.fn.dataTable.render.ellipsis(12,)
+			},
+			{
+				targets:14,
+				render: $.fn.dataTable.render.ellipsis(12,)
+			},
+			{
+				targets:18,
+				render: $.fn.dataTable.render.ellipsis(12,)
+			},
+			{
+				targets:6,
+				render: $.fn.dataTable.render.ellipsis(12,)
+			},
+			{
+				targets:9,
+				render: $.fn.dataTable.render.ellipsis(12,)
+			},
+			],
+		});
+	});
+
+	var config_subunit = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ genesubunits.values}},
+				backgroundColor: ['#0a9396','#bb3e03', '#005f73', '#001219', '#9b2226', '#94d2bd', '#ae2012', '#ee9b00', '#ca6702', '#e9d8a6'],
+				hoverOffset: 12,
+			}],
+			labels: {{ genesubunits.index |safe }}
+		},
+		options: {
+			responsive: true,
+			plugins:{
+				legend: {display: false,},
+				title: { display: false,}
+			}
+		},
+	};
+
+	var config_type = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ genetypes.values}},
+				backgroundColor: ['#0a9396','#bb3e03', '#005f73', '#001219', '#9b2226', '#94d2bd', '#ae2012', '#ee9b00', '#ca6702', '#e9d8a6'],
+				hoverOffset: 12,
+			}],
+			labels: {{ genetypes.index |safe }}
+		},
+		options: {
+			responsive: true,
+			plugins:{
+				legend: {display: false,},
+				title: { display: false,}
+			}
+		},
+	};
+
+	var config_study = {
+		type: 'doughnut',
+		data: {
+			datasets: [{
+				data: {{ genestudies.values | safe}},
+				backgroundColor: ['#0a9396','#bb3e03', '#005f73', '#001219', '#9b2226', '#94d2bd', '#ae2012', '#ee9b00', '#ca6702', '#e9d8a6'],
+				hoverOffset: 12,
+			}],
+			labels: {{ genestudies.index |safe }}
+		},
+		options: {
+			responsive: true,
+			plugins:{
+				legend: {display: false,},
+				title: { display: false,}
+			}
+		},
+	};
+
+	window.onload = function() {
+		var ctx_type = document.getElementById('overview-chart1').getContext('2d');
+    window.myPie = new Chart(ctx_type, config_type);
+
+    var ctx_subunit = document.getElementById('overview-chart2').getContext('2d');
+    window.myPie = new Chart(ctx_subunit, config_subunit);
+
+		var ctx_study = document.getElementById('overview-chart3').getContext('2d');
+    window.myPie = new Chart(ctx_study, config_study);
+  };
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "demoSite/base.html" %}
+
+{% block title %} Error information {% endblock %}
+
+{% block content %}
+{% load static %}
+
+<h1>{{ information1 }}</h1>
+<h4>{{ information2 | safe }}</h4>
+<button type="button" class="btn btn-lg"><a href={{ backlink }}>Back to previous page</a></button>
+
+{% endblock %}

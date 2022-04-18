@@ -1,0 +1,252 @@
+{% extends "demoSite/base.html" %}
+
+{% block title %} CohesinDB_Statistic {% endblock %}
+
+{% block content %}
+{% load static %}
+
+<script type="application/javascript" src="https://polyfill.io/v3/polyfill.min.js?features=ResizeObserver"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+<script src="https://cdn.amcharts.com/lib/4/themes/spiritedaway.js"></script>
+<script src="{% static 'js/barplotAM.js' %}"></script>
+
+<div class="">
+  <h1><i class="fa fa-tachometer"></i> Check statistics of CohesinDB</h1>
+	<div class="row">
+		<div class="col-md-6 column" style='border-width:thin;'>
+      <h3 style='margin-bottom:20px;'><i class="fa fa-flag-o"></i> Number (log2) of samples for cohesin subunits</h3>
+      <canvas id="chart1panel"></canvas>
+		</div>
+		<div class="col-md-6 column" style='border-width:thin;'>
+      <h3 style='margin-bottom:20px;'><i class="fa fa-flag-o"></i> Number of samples for cell types</h3>
+      <canvas id="chart2panel"></canvas>
+    </div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-6 column" style='margin-top:20px;'>
+      <h3><i class="fa fa-flag-o"></i> Characters of 751590 cohesin peaks </h3>
+      <div style="padding-left:50px;padding-right:50px;padding-top:0px; ">
+        <canvas id="chart3panel" style=""></canvas>
+      </div>
+		</div>
+		<div class="col-md-6 column" style='margin-top:20px;'>
+      <h3><i class="fa fa-flag-o"></i> Characters of 60607 genes in CohesinDB </h3>
+      <div style="padding-left:50px;padding-right:50px;padding-top:0px; ">
+        <canvas id="chart4panel" style=""></canvas>
+      </div>
+		</div>
+	</div>
+	<div class="row clearfix">
+		<div class="col-md-12 column" style='margin-top:-50px;'>
+      <h3><i class="fa fa-flag-o"></i> Studies </h3>
+      <div style='height:500px;' id="chart5panel"></div>
+			<div class="row clearfix">
+				<div class="col-md-6 column">
+				</div>
+				<div class="col-md-6 column">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div id="container" style="width: 75%;">
+
+</div>
+
+<script>
+
+  const data1 = {
+                  datasets: {{chart1data|safe}}
+                };
+
+  const options1 = {
+                      responsive: true,
+                      plugins: {
+                        legend:{
+                          position: 'bottom',
+                        },
+                      },
+                      scales: {
+                          x: {display: true, type: 'category', labels: ['SMC1','SMC3','SA1','SA2','Rad21','NIPBL','CTCF',"Input","Other"]},
+                          y: {display: true, type: 'category', labels: [ 'ChIP-seq', 'ChIA-PET', 'Hi-ChIP', 'Hi-C', 'RNA-seq', 'Microarray','PRO-seq','GRO-seq'], },
+                      },
+                      elements: {
+                        point:{
+                          radius: function(context) {
+                          					var data = context.dataset.data[context.dataIndex];
+
+                          					return 20;
+                          				}
+                          },
+                      },
+                  };
+
+  const data2 = {
+    labels: {{ chart2label | safe }},
+    datasets: {{ chart2data | safe }},
+  };
+
+  const options2 = {
+    responsive: true,
+    plugins: {
+      legend:{
+        position: 'bottom',
+      },
+    },
+    scales: {
+      y:{
+        stacked: true,
+      },
+    },
+  }
+
+  const data3 = {
+    labels: {{ chart3label | safe }},
+    datasets: {{ chart3data | safe }},
+  };
+
+  const data4 = {
+    labels: {{ chart4label | safe }},
+    datasets: {{ chart4data | safe }},
+  };
+
+  options3 = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'right',
+        labels: {
+          generateLabels: function(chart) {
+            // Get the default label list
+            const original = Chart.overrides.pie.plugins.legend.labels.generateLabels;
+            const labelsOriginal = original.call(this, chart);
+
+            // Build an array of colors used in the datasets of the chart
+            var datasetColors = chart.data.datasets.map(function(e) {
+              return e.backgroundColor;
+            });
+            datasetColors = datasetColors.flat();
+
+            // Modify the color and hide state of each label
+            labelsOriginal.forEach(label => {
+              // There are twice as many labels as there are datasets. This converts the label index into the corresponding dataset index
+              label.datasetIndex = (label.index - label.index % 2) / 2;
+
+              // The hidden state must match the dataset's hidden state
+              label.hidden = !chart.isDatasetVisible(label.datasetIndex);
+
+              // Change the color to match the dataset
+              label.fillStyle = datasetColors[label.index];
+            });
+
+            return labelsOriginal;
+          }
+        },
+        onClick: function(mouseEvent, legendItem, legend) {
+          // toggle the visibility of the dataset from what it currently is
+          legend.chart.getDatasetMeta(
+            legendItem.datasetIndex
+          ).hidden = legend.chart.isDatasetVisible(legendItem.datasetIndex);
+          legend.chart.update();
+        }
+      },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const labelIndex = (context.datasetIndex * 2) + context.dataIndex;
+            return context.chart.data.labels[labelIndex] + ': ' + context.formattedValue;
+          }
+        }
+      }
+    }
+  }
+
+  window.onload = function() {
+    // Chart.defaults.elements.point.radius = 100;
+    var ctx1 = document.getElementById('chart1panel').getContext('2d');
+    myChart1 = new Chart(ctx1, {type: 'bubble',data: data1, options: options1,
+    plugins: [{
+    afterDatasetUpdate: chart => {
+      chart.getDatasetMeta(0).data.forEach(v => {
+        v.options.radius = 100;
+        v.options.hoverRadius = 100;
+      })
+    }
+  }],
+});
+
+    var ctx2 = document.getElementById('chart2panel').getContext('2d');
+    myChart2 = new Chart(ctx2, {type: 'bar',data: data2, options: options2,});
+
+    var ctx3 = document.getElementById('chart3panel').getContext('2d');
+    myChart3 = new Chart(ctx3, {type: 'pie',data: data3, options: options3,});
+
+    var ctx4 = document.getElementById('chart4panel').getContext('2d');
+    myChart4 = new Chart(ctx4, {type: 'pie',data: data4, options: options3,});
+  };
+
+  am4core.ready(function() {
+
+  // Themes begin
+  am4core.useTheme(am4themes_spiritedaway);
+  am4core.useTheme(am4themes_animated);
+  // Themes end
+
+  // create chart
+  var chart = am4core.create("chart5panel", am4charts.TreeMap);
+  chart.hiddenState.properties.opacity = 0; // this makes initial fade in effect
+
+  chart.data = {{ chart5data | safe }};
+
+  chart.colors.step = 2;
+
+  // define data fields
+  chart.dataFields.value = "value";
+  chart.dataFields.name = "name";
+  chart.dataFields.children = "children";
+
+  chart.zoomable = false;
+  var bgColor = new am4core.InterfaceColorSet().getFor("background");
+
+  // level 0 series template
+  var level0SeriesTemplate = chart.seriesTemplates.create("0");
+  var level0ColumnTemplate = level0SeriesTemplate.columns.template;
+
+  level0ColumnTemplate.column.cornerRadius(10, 10, 10, 10);
+  level0ColumnTemplate.fillOpacity = 0;
+  level0ColumnTemplate.strokeWidth = 4;
+  level0ColumnTemplate.strokeOpacity = 0;
+
+  // level 1 series template
+  var level1SeriesTemplate = chart.seriesTemplates.create("1");
+  var level1ColumnTemplate = level1SeriesTemplate.columns.template;
+
+  level1SeriesTemplate.tooltip.animationDuration = 0;
+  level1SeriesTemplate.strokeOpacity = 1;
+
+  level1ColumnTemplate.column.cornerRadius(10, 10, 10, 10)
+  level1ColumnTemplate.fillOpacity = 1;
+  level1ColumnTemplate.strokeWidth = 4;
+  level1ColumnTemplate.stroke = bgColor;
+
+  var bullet1 = level1SeriesTemplate.bullets.push(new am4charts.LabelBullet());
+  bullet1.locationY = 0.5;
+  bullet1.locationX = 0.5;
+  bullet1.label.text = "{name}";
+  bullet1.label.fill = am4core.color("#ffffff");
+
+  chart.maxLevels = 2;
+
+  }); // end am4core.ready()
+
+
+</script>
+
+{% endblock %}

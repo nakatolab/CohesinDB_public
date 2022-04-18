@@ -1,0 +1,168 @@
+{% extends "demoSite/base_bs4.html" %}
+
+{% block title %} Browse_each_gene {% endblock %}
+
+{% block content %}
+{% load static %}
+{% load replacecomma %}
+
+{% for onegene in selectedgene %}
+<h1><i class="fas fa-dna"></i> Deatailed information for gene {{ onegene.geneID }} </h1>
+
+<hr style="width: 100%; height: 1px; border: none; background-color: #282828">
+
+<div class="row">
+  <div class="col-md-12 container flex-nowrap">
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Basic information</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>CohesinDB ID: </b>{{ onegene.cdbid }}</li>
+        <li class="list-group-item"><b>Gene Symbol: </b>{{ onegene.genesymbol }}</li>
+        <li class="list-group-item"><b>Ensembl ID: </b>{{ onegene.geneID }}</li>
+        <li class="list-group-item"><b>Gene locus: </b>{{ onegene.geneposition }}, strand: {{ onegene.strand }}</li>
+        <li class="list-group-item"><b>Gene type: </b>{{ onegene.proteincoding }}</li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Double-evidenced cohesin related gene</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Whether cohesin-regulated gene (double-evidenced): </b>{{ onegene.triplewheter }}</li>
+        <li class="list-group-item"><b>Regulatory cohesin (double-evidenced): </b>
+          {% for onepeak in relatedpeak %}
+            <a href="/browsepeak/eachpeak/{{onepeak.cdbid}}/">{{ onepeak.slug }}</a>,
+          {% endfor %}
+        </li>
+        <li class="list-group-item"><b>All evidenced type: </b>{{ onegene.relatedtype }}</li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Tissue specific</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item">
+          <b>Gene expression across tissues (TPM): </b>
+          <div id="container" style="width: 100%;">
+            <canvas id="chart-gtex" height="100"></canvas>
+          </div>
+        </li>
+        <li class="list-group-item">
+          <b>Tissue specificity of gene (Gini-coefficient): </b>{{ gtex_objects.gini | floatformat:"3" }}
+          <br>
+          <span class="text-muted"><b>0:Conserved; 1:Tissue-specific</b> For all genes: quantile-25%: 0.26, quantile-50%: 0.36 'quantile-75%': 0.60 </span>
+        </li>
+        <li class="list-group-item">
+          <b>Cell Specificity of regulatory cohesin (1:Tissue-specific; 0:Conserved): </b>{{ relatedpeakspecific_dict | floatformat:"3" }}
+          <br>
+          <span class="text-muted"><b> 0:Conserved; 1:Tissue-specific.</b> For all cohesin sites: quantile-25%: 0.82, quantile-50%: 0.86 'quantile-75%': 0.90 </span>
+        </li>
+      </div>
+
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Cohesin-loop evidence</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Whether has cohesin-loop: </b>{{ onegene.loopwhether }}</li>
+        <li class="list-group-item"><b>Related loop: </b>
+          {% for oneloop in relatedloop %}
+            <a href="/browseloop/eachloop/{{oneloop.cdbid}}/">{{ oneloop.chrom1 }}:{{ oneloop.start1 }}-{{ oneloop.end1 }}~~{{ oneloop.chrom2 }}:{{ oneloop.start2 }}-{{ oneloop.end2 }}</a>,
+          {% endfor %}
+        </li>
+        <li class="list-group-item"><b>Cohesin-loop type: </b>{{ onegene.looptype }}</li>
+        <li class="list-group-item"><b>Cohesin-loop study: </b>{{ onegene.loopstudy | replacecomma }}</li>
+        <li class="list-group-item"><b>Cohesin-loop subunit: </b>{{ onegene.loopsubunit }}</li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Cohesin-DEGs evidence</b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Whether cohesin DEGs: </b>{{ onegene.degwhether }}</li>
+        <li class="list-group-item"><b>Cohesin-DEGs, number of studies: </b>{{ onegene.degnumberstudy }}</li>
+        <li class="list-group-item"><b>Cohesin-DEGs, study: </b>{{ onegene.degstudy }}</li>
+        <li class="list-group-item"><b>Cohesin-DEGs, subunit: </b>{{ onegene.degsubunit }}</li>
+      </div>
+
+      <li class="list-group-item list-group-item-info"><b><i class="fa fa-bookmark" aria-hidden="true"></i> Relations with cohesin </b></li>
+      <div class="col-md-12">
+        <li class="list-group-item"><b>Whether cohesin co-expression: </b>{{ onegene.correlationwhether }}
+          <br>
+          <span class="text-muted">
+            (Note: Cohesin do not need to 'co-express' with its regulated genes. Cohesin genes are highly conserved across tissues, the high co-expression just mean the selected gene is also conserved.)
+          </span>
+        </li>
+        <li class="list-group-item"><b>Cohesin co-expression, R: </b>{{ onegene.correlationRho }}</li>
+        <li class="list-group-item"><b>Cohesin co-expression, FDR: </b>{{ onegene.correlationFDR }}</li>
+        <li class="list-group-item"><b>Cohesin co-expression, subunit </b>{{ onegene.correlationsubunit }}</li>
+      </div>
+    </ul>
+  </div>
+
+  <hr style="width: 100%; height: 1px; border: none; background-color: #282828">
+
+  <div class="col-md-12 container">
+      <div id="embed">eachgene</div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+var ctx_gtex = document.getElementById('chart-gtex').getContext('2d');
+var config_gtex = {
+    type: 'bar',
+    data: {
+      datasets: [{data: {{ gtex_objects.tissuemedian |safe }},
+                  backgroundColor: ['#a6cee3', '#b2df8a','#1f78b4','#cab2d6','#ffff99','#b15928','#33a02c','#6a3d9a','#ff7f00','#fb9a99','#fdbf6f','#e31a1c','#a6cee3', '#b2df8a','#1f78b4','#cab2d6','#ffff99','#b15928','#33a02c','#6a3d9a','#ff7f00','#fb9a99','#fdbf6f','#e31a1c','#a6cee3', '#b2df8a','#1f78b4','#cab2d6','#ffff99','#b15928','#33a02c','#6a3d9a','#ff7f00','#fb9a99','#fdbf6f','#e31a1c','#a6cee3', '#b2df8a','#1f78b4','#cab2d6','#ffff99','#b15928','#33a02c','#6a3d9a','#ff7f00','#fb9a99','#fdbf6f','#e31a1c','#a6cee3', '#b2df8a','#1f78b4','#cab2d6','#ffff99','#b15928','#33a02c','#6a3d9a','#ff7f00','#fb9a99','#fdbf6f','#e31a1c',],
+                  label: 'RNA-seq expression (TPM)'}],
+      labels: {{ gtex_objects.tissuename |safe }}
+      },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {beginAtZero: true},
+          scaleLabel: {display: true, labelString: 'Gene expression (GTEx TPM)'},
+                }]
+        },
+      responsive: true,
+      legend: {
+          display: false,
+          position: 'top',
+        }
+      }
+    };
+
+
+$(document).ready(function() {
+  window.myPie = new Chart(ctx_gtex, config_gtex);
+});
+
+
+const container = document.getElementById('embed');
+const contents = {
+    "genomeName": "hg38",
+    "displayRegion": "{{ visualizeRegion| safe }}",
+    "trackLegendWidth": 120,
+    "isShowingNavigator": true,
+    "tracks": [
+    {
+        "type": "geneannotation",
+        "name": "gencodeV29",
+        "genome": "hg38"
+    },
+    {
+        "type": "ruler",
+        "name": "Ruler"
+    },
+    ],
+    "metadataTerms": ["Assay"],
+    "regionSets": [],
+    "regionSetViewIndex": -1,
+};
+
+console.log({{ epgg_tracks | safe  }})
+
+
+contents["tracks"] = contents["tracks"].concat({{ epgg_tracks | safe  }});
+
+renderBrowserInElement(contents, container);
+</script>
+
+
+
+{% endfor %}
+
+
+{% endblock %}
