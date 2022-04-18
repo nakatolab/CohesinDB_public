@@ -1,2 +1,2 @@
 # CohesinDB_public
-Code for CohesinDB
+Open-source code for CohesinDB project (https://cohesindb.iqb.u-tokyo.ac.jp/)
