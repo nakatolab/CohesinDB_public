@@ -20,15 +20,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&%p)l@04@8*f3g$hr&if%)j=kl*h0nmrmv$a!p3p)st!-a47pn'
+SECRET_KEY = '&%p)l@04@8*f3g$hr&-------deleted-for-open-source-------'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['7d522ea96f86.ngrok.io',
-                 '127.0.0.1',
-                 '130.69.200.133',
-                 'cohesindb.iqb.u-tokyo.ac.jp',]
+ALLOWED_HOSTS = ['-------deleted-for-open-source-------',
+                 '-------deleted-for-open-source-------',
+                 '-------deleted-for-open-source-------',
+                 '-------deleted-for-open-source-------',]
 
 '''
 from corsheaders.defaults import default_headers
@@ -122,9 +122,9 @@ WSGI_APPLICATION = 'CohesinDB.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'demoSite',
-        'USER':'oukenkou',
-        'PASSWORD':'a271828',
+        'NAME': '-------deleted-for-open-source-------',
+        'USER':'-------deleted-for-open-source-------',
+        'PASSWORD':'-------deleted-for-open-source-------',
     }
 }
 
