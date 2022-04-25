@@ -1,7 +1,7 @@
 # CohesinDB_public
 This is the open-source code for CohesinDB, a comprehensive cohesin database in human cells.
 
-This repository only for:
+This repository is only for:
 
 - Anyone who are interested in the source code of CohesinDB Django project. 
 
