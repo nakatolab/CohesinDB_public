@@ -3,7 +3,7 @@ This is the open-source code for CohesinDB, a comprehensive cohesin database in 
 
 **This repository is only for:**
 
-- Bug report and issue tracker.
+- Bug report and issue tracker at https://github.com/wangjk321/CohesinDB_public/issues.
 
 - Anyone who are interested in the source code of CohesinDB Django project. 
 
