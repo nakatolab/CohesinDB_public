@@ -1,6 +1,3 @@
-#scp -r oldjuicer  support@130.69.200.133:/mnt/NAS/WangDB/CohesinDB_processed_Post2021Dec
-#scp -r newjuicer support@130.69.200.133:/mnt/NAS/WangDB/CohesinDB_processed_Post2021Dec
-
 loopdir=/work3/WANG_cohesinDB/Post2021Dec10/Curated/HiC/hiclink/loops
 for i in `ls $loopdir | grep -v call_loop.sh`
 do
