@@ -15,5 +15,5 @@ done
 scp -r processed/HiC_ENCSR637QCS_HCT116_MboI_Rad21-Auxin_NT_rep0.loop user@cohesindb:/mnt/NAS/WangDB/CohesinDB_processed_Post2021Dec/
 scp -r processed/HiC_ENCSR637QCS_HCT116_MboI_Rad21-Auxin_NT_rep0.tad user@cohesindb:/mnt/NAS/WangDB/CohesinDB_processed_Post2021Dec/
 
-scp /work3/WANG_cohesinDB/Post2021Dec10/Curated/HiC/hiclink/newjuicer/HiC_ENCSR637QCS_HCT116_MboI_Rad21-Auxin_NT_rep0.hic support@130.69.200.133:/mnt/NAS/WangDB/CohesinDB_processed_Post2021Dec/  
+scp /work3/WANG_cohesinDB/Post2021Dec10/Curated/HiC/hiclink/newjuicer/HiC_ENCSR637QCS_HCT116_MboI_Rad21-Auxin_NT_rep0.hic user@cohesindb:/mnt/NAS/WangDB/CohesinDB_processed_Post2021Dec/  
 
